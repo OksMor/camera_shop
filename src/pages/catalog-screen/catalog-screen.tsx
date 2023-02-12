@@ -1,13 +1,32 @@
+import { useEffect } from 'react';
+import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
+
+import { fetchCamerasAction } from '../../store/api-action';
+import { getCameras, getIsCamerasLoading } from '../../store/camera-process/selector';
+
 import Header from '../../components/header/header';
 import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogSort from '../../components/catalog-sort/catalog-sort';
-import ProductCard from '../../components/product-card/product-card';
+
 import Pagination from '../../components/pagination/pagination';
 import Footer from '../../components/footer/footer';
+import CatalogCards from '../../components/catalog-cards/catalog-cards';
+
+import Loading from '../../components/loading/loading';
 
 function CatalogScreen(): JSX.Element {
+
+  const dispatch = useAppDispatch();
+
+  const cameras = useAppSelector(getCameras);
+  const isCamerasLoading = useAppSelector(getIsCamerasLoading);
+
+  useEffect(() => {
+    dispatch(fetchCamerasAction());
+  }, [dispatch]);
+
   return (
     <>
       <Header/>
@@ -26,9 +45,7 @@ function CatalogScreen(): JSX.Element {
                 </div>
                 <div className="catalog__content">
                   <CatalogSort/>
-                  <div className="cards catalog__cards">
-                    <ProductCard/>
-                  </div>
+                  {isCamerasLoading ? <Loading/> : <CatalogCards cameras={cameras} />}
                   <Pagination/>
                 </div>
               </div>
