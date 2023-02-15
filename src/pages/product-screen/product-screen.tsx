@@ -120,7 +120,7 @@ function ProductScreen(): JSX.Element {
                       <div className="product-card__buttons">
                         <button className="btn btn--purple product-card__btn" type="button">Купить
                         </button>
-                        <a className="btn btn--transparent" href="#">Подробнее
+                        <a className="btn btn--transparent" href="/">Подробнее
                         </a>
                       </div>
                     </div>

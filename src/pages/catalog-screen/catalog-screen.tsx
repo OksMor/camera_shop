@@ -1,17 +1,20 @@
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 
-import { fetchCamerasAction } from '../../store/api-action';
+import { fetchCamerasAction, fetchPromoAction } from '../../store/api-action';
 import { getCameras, getIsCamerasLoading } from '../../store/camera-process/selector';
 
 import Header from '../../components/header/header';
 import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
+
 import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogSort from '../../components/catalog-sort/catalog-sort';
 
 import Pagination from '../../components/pagination/pagination';
 import Footer from '../../components/footer/footer';
+
 import CatalogCards from '../../components/catalog-cards/catalog-cards';
 
 import Loading from '../../components/loading/loading';
@@ -25,10 +28,15 @@ function CatalogScreen(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchCamerasAction());
+    dispatch(fetchPromoAction());
   }, [dispatch]);
 
   return (
     <>
+      <Helmet>
+        <title>Каталог -Camera Shop</title>
+      </Helmet>
+
       <Header/>
 
       <main>

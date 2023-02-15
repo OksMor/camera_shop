@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {store} from './store';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
+
+import { store } from './store';
 import { fetchCamerasAction } from './store/api-action';
+
 import App from './components/app/app';
 
 store.dispatch(fetchCamerasAction());

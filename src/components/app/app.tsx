@@ -1,9 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
 import CatalogScreen from '../../pages/catalog-screen/catalog-screen';
+import ProductScreen from '../../pages/product-screen/product-screen';
+
 import { AppRoute } from '../../const';
 
 function App(): JSX.Element {
@@ -14,6 +17,10 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Root}
             element={<CatalogScreen />}
+          />
+          <Route
+            path={AppRoute.Camera}
+            element={<ProductScreen />}
           />
           {/* <Route
             path="*"

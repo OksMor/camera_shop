@@ -9,9 +9,8 @@ export enum APIRoute {
 }
 
 export enum NameSpace {
-  CamerasData = 'CamerasData',
-  PromoData = 'PromoData',
-  App = 'App',
+  CamerasData = 'CAMERASDATA',
+  PromoData = 'PROMODATA',
 }
 
 export const MAX_RATING = 5;
