@@ -15,3 +15,8 @@ export type PromoState = {
   promo: Promo | null;
   isLoading: boolean;
 };
+
+export type CameraState = {
+  camera: Camera | null;
+  isLoading: boolean;
+};

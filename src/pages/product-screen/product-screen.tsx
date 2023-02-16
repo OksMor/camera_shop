@@ -1,46 +1,63 @@
+import { Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
+
+import { fetchCurrentCameraAction } from '../../store/api-action';
+
+import NotFoundScreen from '../no-found-screen/no-found-screen';
+
 import Header from '../../components/header/header';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
+import { getCurrentCamera } from '../../store/current-camera-process/selector';
+
+import { MAX_RATING } from '../../const';
 
 function ProductScreen(): JSX.Element {
-  return (
+
+  const params = useParams();
+  const dispatch = useAppDispatch();
+
+  const camera = useAppSelector(getCurrentCamera);
+
+  useEffect(() => {
+    if (params.id && camera?.id.toString() !== params.id) {
+      dispatch(fetchCurrentCameraAction(params.id));
+    }
+  }, [params.id, dispatch, camera?.id]);
+
+  return camera ? (
     <>
+      <Helmet>
+        <title>{`Camera Shop. ${camera.name}`}</title>
+      </Helmet>
       <Header/>
       <main>
         <div className="page-content">
-          <Breadcrumbs/>
+          <Breadcrumbs camera={camera}/>
 
           <div className="page-content__section">
             <section className="product">
               <div className="container">
                 <div className="product__img">
                   <picture>
-                    <source type="image/webp" srcSet="img/content/img1.webp, img/content/img1@2x.webp 2x"/>
-                    <img src="img/content/img1.jpg" srcSet="img/content/img1@2x.jpg 2x" width="560" height="480" alt="Ретрокамера Das Auge IV"/>
+                    <source type="image/webp" srcSet={`${camera.previewImgWebp}, ${camera.previewImgWebp2x} 2x`}/>
+                    <img src={camera.previewImg} srcSet={`${camera.previewImg2x} 2x`} width="560" height="480" alt={camera.name}/>
                   </picture>
                 </div>
                 <div className="product__content">
-                  <h1 className="title title--h3">Ретрокамера «Das Auge IV»</h1>
+                  <h1 className="title title--h3">{camera.name}</h1>
                   <div className="rate product__rate">
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-full-star"></use>
-                    </svg>
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-full-star"></use>
-                    </svg>
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-full-star"></use>
-                    </svg>
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-full-star"></use>
-                    </svg>
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-star"></use>
-                    </svg>
-                    <p className="visually-hidden">Рейтинг: 4</p>
-                    <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>12</p>
+                    {Array.from({length: MAX_RATING}, (_, index) => (
+                      <svg width="17" height="16" aria-hidden="true" key={index}>
+                        <use xlinkHref={`#icon-${index < camera.rating ? 'full-' : ''}star`}></use>
+                      </svg>
+                    ))}
+                    <p className="visually-hidden">Рейтинг: {camera.rating}</p>
+                    <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}</p>
                   </div>
-                  <p className="product__price"><span className="visually-hidden">Цена:</span>73 450 ₽</p>
+                  <p className="product__price"><span className="visually-hidden">Цена:</span>{camera.price.toLocaleString('ru-Ru')} ₽</p>
                   <button className="btn btn--purple" type="button">
                     <svg width="24" height="16" aria-hidden="true">
                       <use xlinkHref="#icon-add-basket"></use>
@@ -270,7 +287,7 @@ function ProductScreen(): JSX.Element {
 
       <Footer/>
     </>
-  );
+  ) : <NotFoundScreen/>;
 }
 
 export default ProductScreen;

@@ -34,7 +34,7 @@ function CatalogScreen(): JSX.Element {
   return (
     <>
       <Helmet>
-        <title>Каталог -Camera Shop</title>
+        <title>Camera Shop. Каталог</title>
       </Helmet>
 
       <Header/>
@@ -43,7 +43,7 @@ function CatalogScreen(): JSX.Element {
         <Banner/>
 
         <div className="page-content">
-          <Breadcrumbs/>
+          <Breadcrumbs camera={null}/>
           <section className="catalog">
             <div className="container">
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>

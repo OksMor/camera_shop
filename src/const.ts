@@ -11,6 +11,7 @@ export enum APIRoute {
 export enum NameSpace {
   CamerasData = 'CAMERASDATA',
   PromoData = 'PROMODATA',
+  CurrentCamera = 'CURRENTCAMERA',
 }
 
 export const MAX_RATING = 5;
