@@ -15,3 +15,8 @@ export enum NameSpace {
 }
 
 export const MAX_RATING = 5;
+
+export enum Tab {
+  Description = 'Description',
+  Specification = 'Specification',
+}

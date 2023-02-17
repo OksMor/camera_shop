@@ -20,7 +20,7 @@ function Breadcrumbs(props: QuestCardProps): JSX.Element {
             </a>
           </li>
           <li className="breadcrumbs__item">
-            <span className="breadcrumbs__link breadcrumbs__link--active">Каталог
+            <span className="breadcrumbs__link breadcrumbs__link--active">Каталог {/* ФИГМА - каталог подсвечен и ссылка при нахождении на странице камеры!!! */}
               {camera && (
                 <svg width="5" height="8" aria-hidden="true">
                   <use xlinkHref="#icon-arrow-mini"></use>

@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 
 import { fetchCurrentCameraAction } from '../../store/api-action';
@@ -10,6 +10,8 @@ import NotFoundScreen from '../no-found-screen/no-found-screen';
 import Header from '../../components/header/header';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
+import Tabs from '../../components/tabs/tabs';
+
 import { getCurrentCamera } from '../../store/current-camera-process/selector';
 
 import { MAX_RATING } from '../../const';
@@ -21,11 +23,19 @@ function ProductScreen(): JSX.Element {
 
   const camera = useAppSelector(getCurrentCamera);
 
+  const [inBasket, setInBasket] = useState<boolean>(false);
+
   useEffect(() => {
     if (params.id && camera?.id.toString() !== params.id) {
       dispatch(fetchCurrentCameraAction(params.id));
     }
   }, [params.id, dispatch, camera?.id]);
+
+  const handleButtonClick = () => {
+    setInBasket(true);
+  };
+
+  // при загрузке страницы мигает 404 - исправить!!! КАРТИНКИ вынести кнопки купить/в карзину и в корзине тут и в превью в отдельные !!!!!!
 
   return camera ? (
     <>
@@ -58,41 +68,13 @@ function ProductScreen(): JSX.Element {
                     <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}</p>
                   </div>
                   <p className="product__price"><span className="visually-hidden">Цена:</span>{camera.price.toLocaleString('ru-Ru')} ₽</p>
-                  <button className="btn btn--purple" type="button">
+                  {inBasket ? <button className="btn btn--purple-border product-card__btn product-card__btn--in-cart"><svg width={16} height={16} aria-hidden="true"><use xlinkHref="#icon-basket"/></svg>В корзине</button> : <button className="btn btn--purple product-card__btn" type="button" onClick={handleButtonClick}><svg width="24" height="16" aria-hidden="true"><use xlinkHref="#icon-add-basket"></use></svg>Добавить в корзину</button>}
+                  {/* <button className="btn btn--purple" type="button" onClick={handleAddBasketBtnClick}>
                     <svg width="24" height="16" aria-hidden="true">
                       <use xlinkHref="#icon-add-basket"></use>
                     </svg>Добавить в корзину
-                  </button>
-                  <div className="tabs product__tabs">
-                    <div className="tabs__controls product__tabs-controls">
-                      <button className="tabs__control" type="button">Характеристики</button>
-                      <button className="tabs__control is-active" type="button">Описание</button>
-                    </div>
-                    <div className="tabs__content">
-                      <div className="tabs__element">
-                        <ul className="product__tabs-list">
-                          <li className="item-list"><span className="item-list__title">Артикул:</span>
-                            <p className="item-list__text"> DA4IU67AD5</p>
-                          </li>
-                          <li className="item-list"><span className="item-list__title">Категория:</span>
-                            <p className="item-list__text">Видеокамера</p>
-                          </li>
-                          <li className="item-list"><span className="item-list__title">Тип камеры:</span>
-                            <p className="item-list__text">Коллекционная</p>
-                          </li>
-                          <li className="item-list"><span className="item-list__title">Уровень:</span>
-                            <p className="item-list__text">Любительский</p>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="tabs__element is-active">
-                        <div className="product__tabs-text">
-                          <p>Немецкий концерн BRW разработал видеокамеру Das Auge IV в&nbsp;начале 80-х годов, однако она до&nbsp;сих пор пользуется популярностью среди коллекционеров и&nbsp;яростных почитателей старинной техники.</p>
-                          <p>Вы&nbsp;тоже можете прикоснуться к&nbsp;волшебству аналоговой съёмки, заказав этот чудо-аппарат. Кто знает, может с&nbsp;Das Auge IV&nbsp;начнётся ваш путь к&nbsp;наградам всех престижных кинофестивалей.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  </button> */}
+                  <Tabs camera={camera} />
                 </div>
               </div>
             </section>
@@ -103,44 +85,7 @@ function ProductScreen(): JSX.Element {
                 <h2 className="title title--h3">Похожие товары</h2>
                 <div className="product-similar__slider">
                   <div className="product-similar__slider-list">
-                    <div className="product-card is-active">
-                      <div className="product-card__img">
-                        <picture>
-                          <source type="image/webp" srcSet="img/content/img9.webp, img/content/img9@2x.webp 2x"/>
-                          <img src="img/content/img9.jpg" srcSet="img/content/img9@2x.jpg 2x" width="280" height="240" alt="Фотоаппарат FastShot MR-5"/>
-                        </picture>
-                      </div>
-                      <div className="product-card__info">
-                        <div className="rate product-card__rate">
-                          <svg width="17" height="16" aria-hidden="true">
-                            <use xlinkHref="#icon-full-star"></use>
-                          </svg>
-                          <svg width="17" height="16" aria-hidden="true">
-                            <use xlinkHref="#icon-full-star"></use>
-                          </svg>
-                          <svg width="17" height="16" aria-hidden="true">
-                            <use xlinkHref="#icon-full-star"></use>
-                          </svg>
-                          <svg width="17" height="16" aria-hidden="true">
-                            <use xlinkHref="#icon-full-star"></use>
-                          </svg>
-                          <svg width="17" height="16" aria-hidden="true">
-                            <use xlinkHref="#icon-star"></use>
-                          </svg>
-                          <p className="visually-hidden">Рейтинг: 4</p>
-                          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>12</p>
-                        </div>
-                        <p className="product-card__title">Фотоаппарат FastShot MR-5</p>
-                        <p className="product-card__price"><span className="visually-hidden">Цена:</span>18 970 ₽
-                        </p>
-                      </div>
-                      <div className="product-card__buttons">
-                        <button className="btn btn--purple product-card__btn" type="button">Купить
-                        </button>
-                        <a className="btn btn--transparent" href="/">Подробнее
-                        </a>
-                      </div>
-                    </div>
+
                   </div>
                   <button className="slider-controls slider-controls--prev" type="button" aria-label="Предыдущий слайд" disabled>
                     <svg width="7" height="12" aria-hidden="true">

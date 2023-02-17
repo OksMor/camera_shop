@@ -1,12 +1,19 @@
 import { Camera } from '../../types/types';
 import { APIRoute, MAX_RATING } from '../../const';
 
+import { useState } from 'react';
+
 type QuestCardProps = {
   camera: Camera;
 }
 
 function ProductCard(props: QuestCardProps): JSX.Element {
   const { camera } = props;
+  const [inBasket, setInBasket] = useState<boolean>(false);
+
+  const handleButtonClick = () => { // попап добавления в корзину
+    setInBasket(true);
+  };
 
   return (
     <div className="product-card">
@@ -23,21 +30,6 @@ function ProductCard(props: QuestCardProps): JSX.Element {
               <use xlinkHref={`#icon-${index < camera.rating ? 'full-' : ''}star`}></use>
             </svg>
           ))}
-          {/* <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
-          </svg> */}
           <p className="visually-hidden">Рейтинг: {camera.rating}</p>
           <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}</p>
         </div>
@@ -46,10 +38,9 @@ function ProductCard(props: QuestCardProps): JSX.Element {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button">Купить
-        </button>
-        <a className="btn btn--transparent" href={`${APIRoute.Cameras}/${camera.id}`}>Подробнее
-        </a>
+        {inBasket ? <button className="btn btn--purple-border product-card__btn product-card__btn--in-cart"><svg width={16} height={16} aria-hidden="true"><use xlinkHref="#icon-basket"/></svg>В корзине</button> : <button className="btn btn--purple product-card__btn" type="button" onClick={handleButtonClick}>Купить</button>}
+        {/* <button className="btn btn--purple product-card__btn" type="button">Купить</button> */}
+        <a className="btn btn--transparent" href={`${APIRoute.Cameras}/${camera.id}`}>Подробнее</a>
       </div>
     </div>
   );
