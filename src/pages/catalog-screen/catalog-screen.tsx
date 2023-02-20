@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router-dom';
+
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 
 import { fetchCamerasAction, fetchPromoAction } from '../../store/api-action';
@@ -19,11 +21,20 @@ import CatalogCards from '../../components/catalog-cards/catalog-cards';
 
 import Loading from '../../components/loading/loading';
 
+import { PAGE_COUNTER_STEP, MAX_CARDS_ON_PAGE } from '../../const';
+
 function CatalogScreen(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
   const cameras = useAppSelector(getCameras);
+
+  const { pageId } = useParams();
+
+  const firstCardIndex = MAX_CARDS_ON_PAGE * (Number(pageId) - PAGE_COUNTER_STEP);
+
+  const camerasOnPage = cameras.slice(firstCardIndex, (firstCardIndex + MAX_CARDS_ON_PAGE));
+
   const isCamerasLoading = useAppSelector(getIsCamerasLoading);
 
   useEffect(() => {
@@ -53,7 +64,7 @@ function CatalogScreen(): JSX.Element {
                 </div>
                 <div className="catalog__content">
                   <CatalogSort/>
-                  {isCamerasLoading ? <Loading/> : <CatalogCards cameras={cameras} />}
+                  {isCamerasLoading ? <Loading/> : <CatalogCards cameras={camerasOnPage} />}
                   <Pagination/>
                 </div>
               </div>

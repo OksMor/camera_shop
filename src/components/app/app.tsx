@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
 import HistoryRouter from '../history-route/history-route';
@@ -7,7 +7,7 @@ import browserHistory from '../../browser-history';
 import CatalogScreen from '../../pages/catalog-screen/catalog-screen';
 import ProductScreen from '../../pages/product-screen/product-screen';
 
-import { AppRoute } from '../../const';
+import { AppRoute, DEFAULT_PAGE } from '../../const';
 
 function App(): JSX.Element {
   return (
@@ -16,10 +16,14 @@ function App(): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
+            element={<Navigate to = {`${AppRoute.Catalog}/${DEFAULT_PAGE}`} />}
+          />
+          <Route
+            path={`${AppRoute.Catalog}/:pageId`}
             element={<CatalogScreen />}
           />
           <Route
-            path={AppRoute.Camera}
+            path={`${AppRoute.Camera}/:id`}
             element={<ProductScreen />}
           />
           {/* <Route

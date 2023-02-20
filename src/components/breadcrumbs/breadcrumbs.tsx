@@ -13,25 +13,25 @@ function Breadcrumbs(props: QuestCardProps): JSX.Element {
       <div className="container">
         <ul className="breadcrumbs__list">
           <li className="breadcrumbs__item">
-            <a className="breadcrumbs__link" href="/">Главная
+            <Link className="breadcrumbs__link" to={AppRoute.Root}>Главная
               <svg width="5" height="8" aria-hidden="true">
                 <use xlinkHref="#icon-arrow-mini"></use>
               </svg>
-            </a>
+            </Link>
           </li>
           <li className="breadcrumbs__item">
-            <span className="breadcrumbs__link breadcrumbs__link--active">Каталог {/* ФИГМА - каталог подсвечен и ссылка при нахождении на странице камеры!!! */}
-              {camera && (
+            {camera ?
+              <Link className="breadcrumbs__link" to={AppRoute.Root}>Каталог
                 <svg width="5" height="8" aria-hidden="true">
                   <use xlinkHref="#icon-arrow-mini"></use>
                 </svg>
-              )}
-            </span>
+              </Link> :
+              <span className="breadcrumbs__link breadcrumbs__link--active">Каталог
+              </span>}
           </li>
           {camera && (
             <li className="breadcrumbs__item">
-              <Link className="breadcrumbs__link breadcrumbs__link--active" to={AppRoute.Root}>
-                {camera.name}
+              <Link className="breadcrumbs__link breadcrumbs__link--active" to={AppRoute.Root}>{camera.name}
               </Link>
             </li>
           )}

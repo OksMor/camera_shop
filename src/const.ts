@@ -1,11 +1,13 @@
 export enum AppRoute {
   Root = '/',
-  Camera = '/cameras/:id',
+  Camera = '/cameras',
+  Catalog = '/catalog',
 }
 
 export enum APIRoute {
   Cameras = '/cameras',
   Promo = '/promo',
+  Catalog = '/catalog',
 }
 
 export enum NameSpace {
@@ -20,3 +22,7 @@ export enum Tab {
   Description = 'Description',
   Specification = 'Specification',
 }
+
+export const DEFAULT_PAGE = 1;
+export const MAX_CARDS_ON_PAGE = 9;
+export const PAGE_COUNTER_STEP = 1;
