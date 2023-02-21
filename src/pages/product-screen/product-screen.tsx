@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 
-import { fetchCurrentCameraAction } from '../../store/api-action';
+import { fetchCurrentCameraAction, fetchSimilarCamerasAction } from '../../store/api-action';
 
 import NotFoundScreen from '../no-found-screen/no-found-screen';
 
@@ -11,10 +11,12 @@ import Header from '../../components/header/header';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import Tabs from '../../components/tabs/tabs';
+import SimilarCameraSlider from '../../components/similar-camera-slider/similar-camera-slider';
 
 import { getCurrentCamera } from '../../store/current-camera-process/selector';
+import { getSimilarCameras } from '../../store/similar-cameras-process/selector';
 
-import { MAX_RATING } from '../../const';
+import { MAX_RATING, MIN_SLIDES_ON_PAGE } from '../../const';
 
 function ProductScreen(): JSX.Element {
 
@@ -22,12 +24,14 @@ function ProductScreen(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const camera = useAppSelector(getCurrentCamera);
+  const similarCameraList = useAppSelector(getSimilarCameras);
 
   const [inBasket, setInBasket] = useState<boolean>(false);
 
   useEffect(() => {
     if (params.id && camera?.id.toString() !== params.id) {
       dispatch(fetchCurrentCameraAction(params.id));
+      dispatch(fetchSimilarCamerasAction(params.id));
     }
   }, [params.id, dispatch, camera?.id]);
 
@@ -83,7 +87,8 @@ function ProductScreen(): JSX.Element {
             <section className="product-similar">
               <div className="container">
                 <h2 className="title title--h3">Похожие товары</h2>
-                <div className="product-similar__slider">
+                {(similarCameraList.length !== MIN_SLIDES_ON_PAGE) ? <SimilarCameraSlider /> : ''}
+                {/* <div className="product-similar__slider">
                   <div className="product-similar__slider-list">
 
                   </div>
@@ -97,7 +102,7 @@ function ProductScreen(): JSX.Element {
                       <use xlinkHref="#icon-arrow"></use>
                     </svg>
                   </button>
-                </div>
+                </div> */}
               </div>
             </section>
           </div>
