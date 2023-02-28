@@ -4,8 +4,6 @@ import { AppDispatch, State } from '../types/state';
 import { Camera, Promo } from '../types/types';
 import { APIRoute } from '../const';
 
-//const SIMILAR_COUNT = 3; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 export const fetchCamerasAction = createAsyncThunk<Camera[], undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -29,7 +27,7 @@ export const fetchCurrentCameraAction = createAsyncThunk<Camera, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchCurrentFilm',
+  'data/fetchCurrentCamera',
   async (cameraId, {extra: api}) => (await api.get<Camera>(`${APIRoute.Cameras}/${cameraId}`)).data,
 );
 
@@ -38,9 +36,9 @@ export const fetchSimilarCamerasAction = createAsyncThunk<Camera[], string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchSimilarFilms',
+  'data/fetchSimilarCameras',
   async (cameraId, {extra: api}) =>
-    (await api.get<Camera[]>(`${APIRoute.Cameras}/${cameraId}/similar`)).data.filter((film) => film.id.toString() !== cameraId),
+    (await api.get<Camera[]>(`${APIRoute.Cameras}/${cameraId}/similar`)).data,
 );
 
 // export const fetchSimilarCamerasAction = createAsyncThunk<Camera[], string, {

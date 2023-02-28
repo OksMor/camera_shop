@@ -16,7 +16,7 @@ import SimilarCameraSlider from '../../components/similar-camera-slider/similar-
 import { getCurrentCamera } from '../../store/current-camera-process/selector';
 import { getSimilarCameras } from '../../store/similar-cameras-process/selector';
 
-import { MAX_RATING, MIN_SLIDES_ON_PAGE } from '../../const';
+import { MAX_RATING } from '../../const';
 
 function ProductScreen(): JSX.Element {
 
@@ -28,20 +28,31 @@ function ProductScreen(): JSX.Element {
 
   const [inBasket, setInBasket] = useState<boolean>(false);
 
+  // useEffect(() => {
+  //   if (params.id && camera?.id.toString() !== params.id) {
+  //     dispatch(fetchCurrentCameraAction(params.id));
+  //     dispatch(fetchSimilarCamerasAction(Number(params.id)));
+  //   }
+  // }, [params.id, dispatch, camera?.id]);
+
   useEffect(() => {
-    if (params.id && camera?.id.toString() !== params.id) {
+    if (params.id) {
       dispatch(fetchCurrentCameraAction(params.id));
       dispatch(fetchSimilarCamerasAction(params.id));
     }
-  }, [params.id, dispatch, camera?.id]);
+  }, [params.id, dispatch]);
 
   const handleButtonClick = () => {
     setInBasket(true);
   };
 
+  if (!camera) {
+    return <NotFoundScreen />;
+  }
+
   // при загрузке страницы мигает 404 - исправить!!! КАРТИНКИ вынести кнопки купить/в карзину и в корзине тут и в превью в отдельные !!!!!!
 
-  return camera ? (
+  return (
     <>
       <Helmet>
         <title>{`Camera Shop. ${camera.name}`}</title>
@@ -84,27 +95,7 @@ function ProductScreen(): JSX.Element {
             </section>
           </div>
           <div className="page-content__section">
-            <section className="product-similar">
-              <div className="container">
-                <h2 className="title title--h3">Похожие товары</h2>
-                {(similarCameraList.length !== MIN_SLIDES_ON_PAGE) ? <SimilarCameraSlider /> : ''}
-                {/* <div className="product-similar__slider">
-                  <div className="product-similar__slider-list">
-
-                  </div>
-                  <button className="slider-controls slider-controls--prev" type="button" aria-label="Предыдущий слайд" disabled>
-                    <svg width="7" height="12" aria-hidden="true">
-                      <use xlinkHref="#icon-arrow"></use>
-                    </svg>
-                  </button>
-                  <button className="slider-controls slider-controls--next" type="button" aria-label="Следующий слайд">
-                    <svg width="7" height="12" aria-hidden="true">
-                      <use xlinkHref="#icon-arrow"></use>
-                    </svg>
-                  </button>
-                </div> */}
-              </div>
-            </section>
+            {similarCameraList && <SimilarCameraSlider similarCameras={similarCameraList} />}
           </div>
           <div className="page-content__section">
             <section className="review-block">
@@ -237,7 +228,7 @@ function ProductScreen(): JSX.Element {
 
       <Footer/>
     </>
-  ) : <NotFoundScreen/>;
+  );
 }
 
 export default ProductScreen;
