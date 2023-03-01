@@ -22,6 +22,6 @@ export type CameraState = {
 };
 
 export type SimilarCamerasState = {
-  cameras: Camera[];
+  similarCameras: Camera[];
   isLoading: boolean;
 };

@@ -1,5 +1,6 @@
 import { Camera } from '../../types/types';
 
+
 import ProductCard from '../product-card/product-card';
 
 type QuestsListProps = {
@@ -12,11 +13,10 @@ function CatalogCards(props: QuestsListProps): JSX.Element {
   return (
     <div className="cards catalog__cards">
       {cameras.map((camera) => (
-
-        <ProductCard key={camera.id} camera={camera} />
-
+        <div key={camera.id} className="product-card">
+          <ProductCard key={camera.id} camera={camera} />
+        </div>
       ))}
-      {/* {cameras.map((camera) => <ProductCard key={camera.id} camera={camera}/>)} */}
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { SimilarCamerasState } from '../../types/state';
 import { NameSpace } from '../../const';
 
 const initialState: SimilarCamerasState = {
-  cameras: [],
+  similarCameras: [],
   isLoading: true
 };
 
@@ -18,7 +18,7 @@ export const similarCamerasProcess = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchSimilarCamerasAction.fulfilled, (state, action) => {
-        state.cameras = action.payload;
+        state.similarCameras = action.payload;
         state.isLoading = false;
       })
       .addCase(fetchSimilarCamerasAction.rejected, (state) => {

@@ -14,33 +14,26 @@ import Tabs from '../../components/tabs/tabs';
 import SimilarCameraSlider from '../../components/similar-camera-slider/similar-camera-slider';
 
 import { getCurrentCamera } from '../../store/current-camera-process/selector';
-import { getSimilarCameras } from '../../store/similar-cameras-process/selector';
+// import { getSimilarCameras } from '../../store/similar-cameras-process/selector';
 
 import { MAX_RATING } from '../../const';
 
 function ProductScreen(): JSX.Element {
 
-  const params = useParams();
+  const {id} = useParams();
   const dispatch = useAppDispatch();
 
   const camera = useAppSelector(getCurrentCamera);
-  const similarCameraList = useAppSelector(getSimilarCameras);
+  // const similarCameraList = useAppSelector(getSimilarCameras);
 
   const [inBasket, setInBasket] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   if (params.id && camera?.id.toString() !== params.id) {
-  //     dispatch(fetchCurrentCameraAction(params.id));
-  //     dispatch(fetchSimilarCamerasAction(Number(params.id)));
-  //   }
-  // }, [params.id, dispatch, camera?.id]);
-
   useEffect(() => {
-    if (params.id) {
-      dispatch(fetchCurrentCameraAction(params.id));
-      dispatch(fetchSimilarCamerasAction(params.id));
+    if (id) {
+      dispatch(fetchCurrentCameraAction(id));
+      dispatch(fetchSimilarCamerasAction(id));
     }
-  }, [params.id, dispatch]);
+  }, [id, dispatch]);
 
   const handleButtonClick = () => {
     setInBasket(true);
@@ -95,7 +88,8 @@ function ProductScreen(): JSX.Element {
             </section>
           </div>
           <div className="page-content__section">
-            {similarCameraList && <SimilarCameraSlider similarCameras={similarCameraList} />}
+            <SimilarCameraSlider />
+            {/* {similarCameraList && <SimilarCameraSlider similarCameras={similarCameraList} />} */}
           </div>
           <div className="page-content__section">
             <section className="review-block">

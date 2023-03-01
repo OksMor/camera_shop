@@ -2,7 +2,7 @@ import { Camera } from '../../types/types';
 import { APIRoute, MAX_RATING } from '../../const';
 
 import { useState } from 'react';
-// import { Fragment } from 'react';
+import { Fragment } from 'react';
 
 type ProductCardProps = {
   camera: Camera;
@@ -18,7 +18,7 @@ function ProductCard(props: ProductCardProps): JSX.Element {
   };
 
   return (
-    <div className="product-card is-active">
+    <Fragment key={camera.id}>
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`${camera.previewImgWebp}, ${camera.previewImgWebp2x} 2x`}/>
@@ -44,7 +44,7 @@ function ProductCard(props: ProductCardProps): JSX.Element {
         {/* <button className="btn btn--purple product-card__btn" type="button">Купить</button> */}
         <a className="btn btn--transparent" href={`${APIRoute.Cameras}/${camera.id}`}>Подробнее</a>
       </div>
-    </div>
+    </Fragment>
   );
 }
 
