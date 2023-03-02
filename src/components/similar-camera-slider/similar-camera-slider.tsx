@@ -15,7 +15,19 @@ function SimilarCameraSlider (): JSX.Element { //{ similarCameras }: Props
   const [firstSlideCounter, setFirstSlideCounter] = useState(DEFAULT_SLIDE);
 
   const similarCameras = useAppSelector(getSimilarCameras);
-  const similarCameraListSlice = similarCameras.slice(firstSlideCounter, (firstSlideCounter + MAX_SLIDES_ON_PAGE));
+  //console.log(similarCameras.length);
+
+  const similarCameraListSlice = similarCameras;
+  //console.log(similarCameraListSlice, firstSlideCounter);
+
+  const prevBtnClickHandler = () => {
+    setFirstSlideCounter((prevCounter) => prevCounter - SLIDE_COUNTER_STEP);
+  };
+
+  const nextBtnClickHandler = () => {
+    setFirstSlideCounter((prevCounter) => prevCounter + SLIDE_COUNTER_STEP);
+    //console.log('nextBtnClickHandler', firstSlideCounter);
+  };
 
   return (
     <section className="product-similar">
@@ -25,7 +37,7 @@ function SimilarCameraSlider (): JSX.Element { //{ similarCameras }: Props
 
           <div className="product-similar__slider-list">
 
-            {similarCameraListSlice.map((camera) => (
+            {similarCameraListSlice.slice(firstSlideCounter, (firstSlideCounter + MAX_SLIDES_ON_PAGE)).map((camera) => (
               <div key={camera.id} className="product-card is-active">
                 <ProductCard key={camera.id} camera={camera} />
               </div>
@@ -33,13 +45,13 @@ function SimilarCameraSlider (): JSX.Element { //{ similarCameras }: Props
 
           </div>
 
-          <button onClick={() => setFirstSlideCounter( firstSlideCounter - SLIDE_COUNTER_STEP)} className="slider-controls slider-controls--prev" type="button" aria-label="Предыдущий слайд" disabled={firstSlideCounter === DEFAULT_SLIDE}>
+          <button onClick={prevBtnClickHandler} className="slider-controls slider-controls--prev" type="button" aria-label="Предыдущий слайд" disabled={firstSlideCounter === DEFAULT_SLIDE}>
             <svg width="7" height="12" aria-hidden="true">
               <use xlinkHref="#icon-arrow"></use>
             </svg>
           </button>
 
-          <button onClick={() => setFirstSlideCounter( firstSlideCounter + SLIDE_COUNTER_STEP)} className="slider-controls slider-controls--next" type="button" aria-label="Следующий слайд" disabled={firstSlideCounter === (similarCameras.length - SLIDE_COUNTER_STEP)}>
+          <button onClick={nextBtnClickHandler} className="slider-controls slider-controls--next" type="button" aria-label="Следующий слайд" disabled={firstSlideCounter === (similarCameras.length - MAX_SLIDES_ON_PAGE)}>
             <svg width="7" height="12" aria-hidden="true">
               <use xlinkHref="#icon-arrow"></use>
             </svg>

@@ -6,20 +6,11 @@ function Banner(): JSX.Element {
   const promo = useAppSelector(getPromo);
   // const isLoading = useAppSelector(getIsPromoLoading);
 
-  return (
+  return promo ? (
     <div className="banner">
       <picture>
-        <source
-          type="image/webp"
-          srcSet={`${promo?.previewImgWebp}, ${promo?.previewImgWebp2x} 2x`}
-        />
-        <img
-          src={promo?.previewImg}
-          srcSet={promo?.previewImg2x}
-          width="1280"
-          height="280"
-          alt="баннер"
-        />
+        <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/${promo.previewImgWebp}, ${process.env.PUBLIC_URL}/${promo.previewImgWebp2x} 2x`} />
+        <img src={`${process.env.PUBLIC_URL}/${promo.previewImg}`} srcSet={`${process.env.PUBLIC_URL}/${promo.previewImg2x} 2x`} width="1280" height="280" alt="баннер" />
       </picture>
       <p className="banner__info">
         <span className="banner__message">Новинка!</span>
@@ -30,7 +21,7 @@ function Banner(): JSX.Element {
         </a>
       </p>
     </div>
-  );
+  ) : <div className="banner"></div>;
 }
 
 export default Banner;
