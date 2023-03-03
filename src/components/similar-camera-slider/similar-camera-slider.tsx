@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks/hooks';
 import { getSimilarCameras } from '../../store/similar-cameras-process/selector';
@@ -15,18 +14,20 @@ function SimilarCameraSlider (): JSX.Element { //{ similarCameras }: Props
   const [firstSlideCounter, setFirstSlideCounter] = useState(DEFAULT_SLIDE);
 
   const similarCameras = useAppSelector(getSimilarCameras);
-  //console.log(similarCameras.length);
 
   const similarCameraListSlice = similarCameras;
-  //console.log(similarCameraListSlice, firstSlideCounter);
+  // console.log('старт', firstSlideCounter);
 
-  const prevBtnClickHandler = () => {
+  const handlePrevBtnClick = () => {
+    // console.log('старт prev', firstSlideCounter);
     setFirstSlideCounter((prevCounter) => prevCounter - SLIDE_COUNTER_STEP);
+    // console.log('prevBtnClickHandler', firstSlideCounter);
   };
 
-  const nextBtnClickHandler = () => {
+  const handleNextBtnClick = () => {
+    // console.log('старт next', firstSlideCounter);
     setFirstSlideCounter((prevCounter) => prevCounter + SLIDE_COUNTER_STEP);
-    //console.log('nextBtnClickHandler', firstSlideCounter);
+    // console.log('nextBtnClickHandler', firstSlideCounter);
   };
 
   return (
@@ -45,13 +46,13 @@ function SimilarCameraSlider (): JSX.Element { //{ similarCameras }: Props
 
           </div>
 
-          <button onClick={prevBtnClickHandler} className="slider-controls slider-controls--prev" type="button" aria-label="Предыдущий слайд" disabled={firstSlideCounter === DEFAULT_SLIDE}>
+          <button onClick={handlePrevBtnClick} className="slider-controls slider-controls--prev" type="button" aria-label="Предыдущий слайд" >
             <svg width="7" height="12" aria-hidden="true">
               <use xlinkHref="#icon-arrow"></use>
             </svg>
           </button>
 
-          <button onClick={nextBtnClickHandler} className="slider-controls slider-controls--next" type="button" aria-label="Следующий слайд" disabled={firstSlideCounter === (similarCameras.length - MAX_SLIDES_ON_PAGE)}>
+          <button onClick={handleNextBtnClick} className="slider-controls slider-controls--next" type="button" aria-label="Следующий слайд" >
             <svg width="7" height="12" aria-hidden="true">
               <use xlinkHref="#icon-arrow"></use>
             </svg>
@@ -64,3 +65,5 @@ function SimilarCameraSlider (): JSX.Element { //{ similarCameras }: Props
 }
 
 export default SimilarCameraSlider;
+//disabled={firstSlideCounter === DEFAULT_SLIDE}
+//disabled={firstSlideCounter === (similarCameras.length - MAX_SLIDES_ON_PAGE+ SLIDE_COUNTER_STEP)}

@@ -1,6 +1,6 @@
 import { store } from '../store/index.js';
 
-import { Camera, Promo } from './types.js';
+import { Camera, Promo, Review } from './types.js';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -24,4 +24,13 @@ export type CameraState = {
 export type SimilarCamerasState = {
   similarCameras: Camera[];
   isLoading: boolean;
+};
+
+export type ReviewState = {
+  review: Review | null;
+  isLoading: boolean;
+};
+
+export type AppState = {
+  reviewsOpen: number;
 };

@@ -8,6 +8,7 @@ export enum APIRoute {
   Cameras = '/cameras',
   Promo = '/promo',
   Catalog = '/catalog',
+  Reviews = '/reviews',
 }
 
 export enum NameSpace {
@@ -15,6 +16,8 @@ export enum NameSpace {
   PromoData = 'PROMODATA',
   CurrentCamera = 'CURRENTCAMERA',
   SimilarCameras = 'SIMILARCAMERAS',
+  ReviewsData = 'REVIEWSDATA',
+  App = 'APP',
 }
 
 export const MAX_RATING = 5;
@@ -34,3 +37,5 @@ export const SLIDE_COUNTER_STEP = 1;
 export const MAX_SLIDES_ON_PAGE = 3;
 export const MIN_SLIDES_ON_PAGE = 0;
 export const DEFAULT_SLIDE = 0;
+
+export const MAX_REVIEW_COUNT = 3;
