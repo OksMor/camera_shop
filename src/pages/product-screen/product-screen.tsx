@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 
 import { fetchCurrentCameraAction, fetchSimilarCamerasAction, fetchReviewsAction } from '../../store/api-action';
 import { getReviewsOpened } from '../../store/app-process/selector';
+import { createReviewsList } from '../../store/app-process/app-process';
 
 import NotFoundScreen from '../no-found-screen/no-found-screen';
 
@@ -14,12 +15,22 @@ import Footer from '../../components/footer/footer';
 import Tabs from '../../components/tabs/tabs';
 import SimilarCameraSlider from '../../components/similar-camera-slider/similar-camera-slider';
 import ReviewBlockList from '../../components/revirew-block-list/review-block-list';
+import ShowMore from '../../components/show-more/show-more';
+import CatalogAddItemModal from '../../components/catalog-add-item-modal/catalog-add-item-modal';
+import ProductReviewModal from '../../components/product-review-modal/product-review-modal';
+import ProductReviewSuccessModal from '../../components/product-review-success-modal/product-review-success-modal';
 
 import { getCurrentCamera } from '../../store/current-camera-process/selector';
 import { getReviews } from '../../store/reviews-process/selector';
 // import { getSimilarCameras } from '../../store/similar-cameras-process/selector';
 
 import { MAX_RATING } from '../../const';
+
+const scrollToTop = () => window.scrollTo({
+  top: 0,
+  left: 0,
+  behavior: 'smooth'
+});
 
 function ProductScreen(): JSX.Element {
 
@@ -32,6 +43,9 @@ function ProductScreen(): JSX.Element {
   const reviewsCount = useAppSelector(getReviewsOpened);
 
   const [inBasket, setInBasket] = useState<boolean>(false);
+  const [isCatalogAddItemModalOpen, setCatalogAddItemModalOpen] = useState(false);
+  const [isReviewModalOpen, setReviewModalOpen] = useState(false);
+  const [isReviewSuccessModalOpen, setReviewSuccessModalOpen] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -41,13 +55,18 @@ function ProductScreen(): JSX.Element {
     }
   }, [id, dispatch]);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = () => { // тоже что и в каталоге!
     setInBasket(true);
+    setCatalogAddItemModalOpen(true);
   };
 
-  // const handleShowMoreButtonClick = () => {
-  //   dispatch(createReviewsList());
-  // };
+  const handleReviewBtnClick = () => {
+    setReviewModalOpen(true);
+  };
+
+  const handleShowMoreButtonClick = () => {
+    dispatch(createReviewsList());
+  };
 
   if (!camera) {
     return <NotFoundScreen />;
@@ -106,27 +125,50 @@ function ProductScreen(): JSX.Element {
               <div className="container">
                 <div className="page-content__headed">
                   <h2 className="title title--h3">Отзывы</h2>
-                  <button className="btn" type="button">Оставить свой отзыв</button>
+                  <button className="btn" type="button" onClick={handleReviewBtnClick}>Оставить свой отзыв</button>
                 </div>
+
                 <ReviewBlockList reviews={reviews.slice(0, reviewsCount)}/>
-                <div className="review-block__buttons">
-                  <button className="btn btn--purple" type="button">Показать больше отзывов
-                  </button>
-                </div>
+                {(reviews.length > reviewsCount) && <ShowMore onClick={handleShowMoreButtonClick}/>}
                 {/* {isReviewsLoading ? <LoadingScreen/> : <ReviewsList reviews={reviews.slice(0, reviewsCount)}/>}
                 {(reviews.length > reviewsCount) && <ShowMore onClick={handleShowMoreButtonClick}/>} */}
+
               </div>
             </section>
           </div>
         </div>
       </main>
-      <a className="up-btn" href="#header">
+      <a className="up-btn" onClick={scrollToTop}>
         <svg width="12" height="18" aria-hidden="true">
           <use xlinkHref="#icon-arrow2"></use>
         </svg>
       </a>
 
       <Footer/>
+
+      {isCatalogAddItemModalOpen && (
+        <CatalogAddItemModal
+          isCatalogAddItemModalOpen={isCatalogAddItemModalOpen}
+          setCatalogAddItemModalOpen={setCatalogAddItemModalOpen}
+          camera={camera}
+        />
+      )}
+      {isReviewModalOpen && (
+        <ProductReviewModal
+          isReviewModalOpen={isReviewModalOpen}
+          setReviewModalOpen={setReviewModalOpen}
+          setReviewSuccessModalOpen={setReviewSuccessModalOpen}
+          camera={camera}
+        />
+      )}
+
+      {isReviewSuccessModalOpen && (
+        <ProductReviewSuccessModal
+          isReviewSuccessModalOpen={isReviewSuccessModalOpen}
+          setReviewSuccessModalOpen={setReviewSuccessModalOpen}
+        />
+      )}
+
     </>
   );
 }

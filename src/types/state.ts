@@ -26,8 +26,8 @@ export type SimilarCamerasState = {
   isLoading: boolean;
 };
 
-export type ReviewState = {
-  review: Review | null;
+export type ReviewsState = {
+  reviews: Review[];
   isLoading: boolean;
 };
 

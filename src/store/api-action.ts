@@ -1,8 +1,9 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
-import { Camera, Promo, Review } from '../types/types';
+import { Camera, Promo, Review, ReviewPost } from '../types/types';
 import { APIRoute } from '../const';
+import { toast } from 'react-toastify';
 
 export const fetchCamerasAction = createAsyncThunk<Camera[], undefined, {
   dispatch: AppDispatch;
@@ -47,9 +48,27 @@ export const fetchReviewsAction = createAsyncThunk<Review[], string, {
   extra: AxiosInstance;
 }>(
   'data/fetchReviews',
-  async (cameraId, {extra: api}) => (await api.get<Review[]>(`${APIRoute.Cameras}/${cameraId}/reviews`).data,
+  async (cameraId, {extra: api}) => (await api.get<Review[]>(`${APIRoute.Cameras}/${cameraId}/reviews`)).data,
 );
 
+export const postReviewAction = createAsyncThunk<
+  void,
+  ReviewPost,
+  { dispatch: AppDispatch; state: State; extra: AxiosInstance }
+>(
+  'data/postReview',
+  async (
+    { userName, advantage, disadvantage, review, rating, cameraId },
+    { dispatch, extra: api },
+  ) => {
+    try {
+      await api.post<ReviewPost>(APIRoute.Reviews, { userName, advantage, disadvantage, review, rating, cameraId });
+    } catch (error) {
+      toast.error('Не удалось отправить комментарий. Попробуйте позже');
+      throw error;
+    }
+  },
+);
 // export const fetchSimilarCamerasAction = createAsyncThunk<Camera[], string, {
 //   dispatch: AppDispatch;
 //   state: State;

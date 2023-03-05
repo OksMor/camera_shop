@@ -39,3 +39,11 @@ export const MIN_SLIDES_ON_PAGE = 0;
 export const DEFAULT_SLIDE = 0;
 
 export const MAX_REVIEW_COUNT = 3;
+
+export const RatingName: { [key: number]: string } = {
+  1: 'Ужасно',
+  2: 'Плохо',
+  3: 'Нормально',
+  4: 'Хорошо',
+  5: 'Отлично',
+} as const;

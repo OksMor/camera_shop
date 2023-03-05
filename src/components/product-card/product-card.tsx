@@ -1,8 +1,9 @@
 import { Camera } from '../../types/types';
 import { APIRoute, MAX_RATING } from '../../const';
 
-import { useState } from 'react';
-import { Fragment } from 'react';
+import { useState, Fragment } from 'react';
+
+import CatalogAddItemModal from '../catalog-add-item-modal/catalog-add-item-modal';
 
 type ProductCardProps = {
   camera: Camera;
@@ -12,9 +13,11 @@ function ProductCard(props: ProductCardProps): JSX.Element {
   const { camera } = props;
 
   const [inBasket, setInBasket] = useState<boolean>(false);
+  const [isCatalogAddItemModalOpen, setCatalogAddItemModalOpen] = useState(false);
 
-  const handleButtonClick = () => { // попап добавления в корзину
-    setInBasket(true);
+  const handleButtonClick = () => {
+    setInBasket(true);// обратный проброс в корзине или нет. связать попапы . отображение количества товара в корзине
+    setCatalogAddItemModalOpen(true);
   };
 
   return (
@@ -39,10 +42,19 @@ function ProductCard(props: ProductCardProps): JSX.Element {
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{camera.price.toLocaleString('ru-Ru')} ₽ </p>
       </div>
       <div className="product-card__buttons">
+        {/* <button className="btn btn--purple product-card__btn" type="button" onClick={handleButtonClick}>Купить</button> */}
         {inBasket ? <button className="btn btn--purple-border product-card__btn product-card__btn--in-cart"><svg width={16} height={16} aria-hidden="true"><use xlinkHref="#icon-basket"/></svg>В корзине</button> : <button className="btn btn--purple product-card__btn" type="button" onClick={handleButtonClick}>Купить</button>}
-        {/* <button className="btn btn--purple product-card__btn" type="button">Купить</button> */}
         <a className="btn btn--transparent" href={`${APIRoute.Cameras}/${camera.id}`}>Подробнее</a>
       </div>
+
+      {isCatalogAddItemModalOpen && (
+        <CatalogAddItemModal
+          isCatalogAddItemModalOpen={isCatalogAddItemModalOpen}
+          setCatalogAddItemModalOpen={setCatalogAddItemModalOpen}
+          camera={camera}
+        />
+      )}
+
     </Fragment>
   );
 }

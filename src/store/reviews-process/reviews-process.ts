@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchReviewsAction } from '../api-action';
-import { ReviewState } from '../../types/state';
+import { ReviewsState } from '../../types/state';
 import { NameSpace } from '../../const';
 
-const initialState: ReviewState = {
-  review: [],
+const initialState: ReviewsState = {
+  reviews: [],
   isLoading: true,
 };
 
@@ -18,7 +18,7 @@ export const reviewsProcess = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
-        state.review = action.payload;
+        state.reviews = action.payload;
         state.isLoading = false;
       })
       .addCase(fetchReviewsAction.rejected, (state) => {
