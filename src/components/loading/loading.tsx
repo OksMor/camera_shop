@@ -1,7 +1,7 @@
 function Loading(): JSX.Element {
   return (
     <div>
-      <p className="loading">Loading ...</p>
+      <p className="page-content loading">Loading ...</p>
     </div>
   );
 }

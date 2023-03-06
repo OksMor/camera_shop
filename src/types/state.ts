@@ -9,6 +9,7 @@ export type AppDispatch = typeof store.dispatch;
 export type CamerasState = {
   cameras: Camera[];
   isLoading: boolean;
+  hasError: boolean,
 };
 
 export type PromoState = {

@@ -13,7 +13,7 @@ function ProductCard(props: ProductCardProps): JSX.Element {
   const { camera } = props;
 
   const [inBasket, setInBasket] = useState<boolean>(false);
-  const [isCatalogAddItemModalOpen, setCatalogAddItemModalOpen] = useState(false);
+  const [isCatalogAddItemModalOpen, setCatalogAddItemModalOpen] = useState<boolean>(false);
 
   const handleButtonClick = () => {
     setInBasket(true);// обратный проброс в корзине или нет. связать попапы . отображение количества товара в корзине

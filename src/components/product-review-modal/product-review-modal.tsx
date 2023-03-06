@@ -8,7 +8,7 @@ import { postReviewAction, fetchReviewsAction } from '../../store/api-action';
 
 import { Camera, ReviewPost } from '../../types/types';
 
-import { MAX_RATING, RatingName } from '../../const';
+import { MAX_RATING, DEFAULT_RATING, RatingName } from '../../const';
 
 ReactModal.defaultStyles = {};
 
@@ -20,10 +20,12 @@ type ProductReviewModalProps = {
 };
 
 function ProductReviewModal(props: ProductReviewModalProps): JSX.Element {
+
   const { isReviewModalOpen, setReviewModalOpen, setReviewSuccessModalOpen, camera } = props;
+
   const dispatch = useAppDispatch();
 
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(DEFAULT_RATING);
 
   const {
     register,

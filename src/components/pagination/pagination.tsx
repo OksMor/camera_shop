@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/hooks';
 import { MAX_CARDS_ON_PAGE, DEFAULT_PAGE, PAGE_COUNTER_STEP, AppRoute } from '../../const';
-import { getCameras } from '../../store/camera-process/selector';
+import { getCameras } from '../../store/cameras-process/selector';
 
 function Pagination(): JSX.Element {
   const cameras = useAppSelector(getCameras);
@@ -27,10 +27,6 @@ function Pagination(): JSX.Element {
         <li className="pagination__item">
           <Link onClick={() => setCurrentPage(currentPage + PAGE_COUNTER_STEP)} className={currentPage === pageCount ? 'visually-hidden' : 'pagination__link pagination__link--text'} to={`${AppRoute.Catalog}/${currentPage + PAGE_COUNTER_STEP}`}>Далее</Link>
         </li>
-        {/* <li className="pagination__item"><a className="pagination__link pagination__link--active" href="1">1</a></li>
-        <li className="pagination__item"><a className="pagination__link" href="2">2</a></li>
-        <li className="pagination__item"><a className="pagination__link" href="3">3</a></li>
-        <li className="pagination__item"><a className="pagination__link pagination__link--text" href="2">Далее</a></li> */}
       </ul>
     </div>
   );

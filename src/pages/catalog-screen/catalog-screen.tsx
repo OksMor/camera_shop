@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 
 import { fetchCamerasAction, fetchPromoAction } from '../../store/api-action';
-import { getCameras, getIsCamerasLoading } from '../../store/camera-process/selector';
+import { getCameras, getIsCamerasLoading } from '../../store/cameras-process/selector';
 
 import Header from '../../components/header/header';
 import Banner from '../../components/banner/banner';

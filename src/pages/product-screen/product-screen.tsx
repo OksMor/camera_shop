@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 
+import dayjs from 'dayjs';
+
 import { fetchCurrentCameraAction, fetchSimilarCamerasAction, fetchReviewsAction } from '../../store/api-action';
 import { getReviewsOpened } from '../../store/app-process/selector';
 import { createReviewsList } from '../../store/app-process/app-process';
-
-import NotFoundScreen from '../no-found-screen/no-found-screen';
 
 import Header from '../../components/header/header';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
@@ -20,9 +20,10 @@ import CatalogAddItemModal from '../../components/catalog-add-item-modal/catalog
 import ProductReviewModal from '../../components/product-review-modal/product-review-modal';
 import ProductReviewSuccessModal from '../../components/product-review-success-modal/product-review-success-modal';
 
+import Loading from '../../components/loading/loading';
+
 import { getCurrentCamera } from '../../store/current-camera-process/selector';
 import { getReviews } from '../../store/reviews-process/selector';
-// import { getSimilarCameras } from '../../store/similar-cameras-process/selector';
 
 import { MAX_RATING } from '../../const';
 
@@ -38,14 +39,18 @@ function ProductScreen(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const camera = useAppSelector(getCurrentCamera);
-  // const similarCameraList = useAppSelector(getSimilarCameras);
+
   const reviews = useAppSelector(getReviews);
   const reviewsCount = useAppSelector(getReviewsOpened);
 
+  const sortedReviews = [...reviews].sort((a, b) =>
+    dayjs(a.createAt).isAfter(dayjs(b.createAt)) ? -1 : 1,
+  );// врет с датой, часовой пояс?
+
   const [inBasket, setInBasket] = useState<boolean>(false);
-  const [isCatalogAddItemModalOpen, setCatalogAddItemModalOpen] = useState(false);
-  const [isReviewModalOpen, setReviewModalOpen] = useState(false);
-  const [isReviewSuccessModalOpen, setReviewSuccessModalOpen] = useState(false);
+  const [isCatalogAddItemModalOpen, setCatalogAddItemModalOpen] = useState<boolean>(false);
+  const [isReviewModalOpen, setReviewModalOpen] = useState<boolean>(false);
+  const [isReviewSuccessModalOpen, setReviewSuccessModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (id) {
@@ -69,10 +74,8 @@ function ProductScreen(): JSX.Element {
   };
 
   if (!camera) {
-    return <NotFoundScreen />;
+    return <Loading />;
   }
-
-  // при загрузке страницы мигает 404 - исправить!!! КАРТИНКИ вынести кнопки купить/в карзину и в корзине тут и в превью в отдельные !!!!!!
 
   return (
     <>
@@ -106,11 +109,7 @@ function ProductScreen(): JSX.Element {
                   </div>
                   <p className="product__price"><span className="visually-hidden">Цена:</span>{camera.price.toLocaleString('ru-Ru')} ₽</p>
                   {inBasket ? <button className="btn btn--purple-border product-card__btn product-card__btn--in-cart"><svg width={16} height={16} aria-hidden="true"><use xlinkHref="#icon-basket"/></svg>В корзине</button> : <button className="btn btn--purple product-card__btn" type="button" onClick={handleButtonClick}><svg width="24" height="16" aria-hidden="true"><use xlinkHref="#icon-add-basket"></use></svg>Добавить в корзину</button>}
-                  {/* <button className="btn btn--purple" type="button" onClick={handleAddBasketBtnClick}>
-                    <svg width="24" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-add-basket"></use>
-                    </svg>Добавить в корзину
-                  </button> */}
+
                   <Tabs camera={camera} />
                 </div>
               </div>
@@ -118,7 +117,6 @@ function ProductScreen(): JSX.Element {
           </div>
           <div className="page-content__section">
             <SimilarCameraSlider />
-            {/* {similarCameraList && <SimilarCameraSlider similarCameras={similarCameraList} />} */}
           </div>
           <div className="page-content__section">
             <section className="review-block">
@@ -128,10 +126,8 @@ function ProductScreen(): JSX.Element {
                   <button className="btn" type="button" onClick={handleReviewBtnClick}>Оставить свой отзыв</button>
                 </div>
 
-                <ReviewBlockList reviews={reviews.slice(0, reviewsCount)}/>
-                {(reviews.length > reviewsCount) && <ShowMore onClick={handleShowMoreButtonClick}/>}
-                {/* {isReviewsLoading ? <LoadingScreen/> : <ReviewsList reviews={reviews.slice(0, reviewsCount)}/>}
-                {(reviews.length > reviewsCount) && <ShowMore onClick={handleShowMoreButtonClick}/>} */}
+                <ReviewBlockList reviews={sortedReviews.slice(0, reviewsCount)}/>
+                {(sortedReviews.length > reviewsCount) && <ShowMore onClick={handleShowMoreButtonClick}/>}
 
               </div>
             </section>

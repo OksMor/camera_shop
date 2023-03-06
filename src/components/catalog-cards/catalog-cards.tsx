@@ -3,11 +3,11 @@ import { Camera } from '../../types/types';
 
 import ProductCard from '../product-card/product-card';
 
-type QuestsListProps = {
+type CatalogCardsProps = {
   cameras: Camera[];
 }
 
-function CatalogCards(props: QuestsListProps): JSX.Element {
+function CatalogCards(props: CatalogCardsProps): JSX.Element {
   const { cameras } = props;
 
   return (

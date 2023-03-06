@@ -59,22 +59,13 @@ export const postReviewAction = createAsyncThunk<
   'data/postReview',
   async (
     { userName, advantage, disadvantage, review, rating, cameraId },
-    { dispatch, extra: api },
+    { extra: api },
   ) => {
     try {
       await api.post<ReviewPost>(APIRoute.Reviews, { userName, advantage, disadvantage, review, rating, cameraId });
     } catch (error) {
-      toast.error('Не удалось отправить комментарий. Попробуйте позже');
+      toast.error('Комментарий не был отправлен. Попробуйте позже.');
       throw error;
     }
   },
 );
-// export const fetchSimilarCamerasAction = createAsyncThunk<Camera[], string, {
-//   dispatch: AppDispatch;
-//   state: State;
-//   extra: AxiosInstance;
-// }>(
-//   'data/fetchSimilarFilms',
-//   async (cameraId, {extra: api}) =>
-//     (await api.get<Camera[]>(`${APIRoute.Cameras}/${cameraId}/similar`)).data.filter((film) => film.id.toString() !== cameraId).slice(0, SIMILAR_COUNT),
-// );
