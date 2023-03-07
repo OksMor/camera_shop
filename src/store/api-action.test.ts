@@ -1,16 +1,16 @@
-import {Action} from 'redux';
-import thunk, {ThunkDispatch} from 'redux-thunk';
+import { Action } from 'redux';
+import thunk, { ThunkDispatch } from 'redux-thunk';
+
 import MockAdapter from 'axios-mock-adapter';
-import {configureMockStore} from '@jedmao/redux-mock-store';
-import {createAPI} from '../services/api';
+import { configureMockStore } from '@jedmao/redux-mock-store';
 
-import {fetchCamerasAction, fetchCurrentCameraAction, fetchSimilarCamerasAction, fetchPromoAction, fetchReviewsAction, postReviewAction} from './api-action';
-import {APIRoute} from '../const';
-import {State} from '../types/state';
+import { createAPI } from '../services/api';
 
-import {mockCamera} from '../mocks/mocks';
-import {mockReview} from '../mocks/mocks';
-import {mockReviewPost} from '../mocks/mocks';
+import { fetchCamerasAction, fetchCurrentCameraAction, fetchSimilarCamerasAction, fetchPromoAction, fetchReviewsAction, postReviewAction } from './api-action';
+import { APIRoute } from '../const';
+import { State } from '../types/state';
+
+import { mockCamera, mockReview, mockReviewPost } from '../mocks/mocks';
 
 describe('Async actions', () => {
   const api = createAPI();
@@ -62,7 +62,7 @@ describe('Async actions', () => {
     ]);
   });
 
-  it('should dispatch fetchSimilarCameraListAction when GET /hotels/id/similar', async () => {
+  it('should dispatch fetchSimilarCamerasAction when GET /cameras/id/similar', async () => {
     const currentCamera = mockCamera();
     const id = currentCamera.id;
     const similarCamerasList = mockCamera();
@@ -102,7 +102,7 @@ describe('Async actions', () => {
     ]);
   });
 
-  it('should dispatch fetchReviewListAction when GET /cameras/id/reviews', async () => {
+  it('should dispatch fetchReviewsAction when GET /cameras/id/reviews', async () => {
     const camera = mockCamera();
     const id = camera.id;
     const reviews = mockReview();
@@ -123,7 +123,7 @@ describe('Async actions', () => {
     ]);
   });
 
-  it('should dispatch sendNewReviewAction when POST /reviews', async () => {
+  it('should dispatch postReviewAction when POST /reviews', async () => {
     const review = mockReviewPost();
 
     mockAPI

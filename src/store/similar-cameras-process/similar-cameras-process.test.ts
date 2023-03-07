@@ -2,9 +2,9 @@ import { fetchSimilarCamerasAction } from '../api-action';
 import { similarCamerasProcess } from './similar-cameras-process';
 import { Camera } from '../../types/types';
 import { SimilarCamerasState } from '../../types/state';
-import { mockCamera } from '../../mocks/mocks';
+import {mockSimilarCameras } from '../../mocks/mocks';
 
-const similarCameras: Camera[] = Array.from({length: 24}, mockCamera);
+const similarCameras: Camera[] = mockSimilarCameras;
 
 describe('Reducer: similarCamerasProcess', () => {
   let state: SimilarCamerasState;

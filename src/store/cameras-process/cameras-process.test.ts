@@ -2,9 +2,9 @@ import { fetchCamerasAction } from '../api-action';
 import { camerasProcess } from './cameras-process';
 import { Camera } from '../../types/types';
 import { CamerasState } from '../../types/state';
-import { mockCamera } from '../../mocks/mocks';
+import { mockCameras } from '../../mocks/mocks';
 
-const cameras: Camera[] = Array.from({length: 24}, mockCamera);
+const cameras: Camera[] = mockCameras;
 
 describe('Reducer: filmsProcess', () => {
   let state: CamerasState;

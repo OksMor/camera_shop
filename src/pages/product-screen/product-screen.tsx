@@ -134,7 +134,7 @@ function ProductScreen(): JSX.Element {
           </div>
         </div>
       </main>
-      <a className="up-btn" onClick={scrollToTop}>
+      <a className="up-btn" href='!#' onClick={scrollToTop}>
         <svg width="12" height="18" aria-hidden="true">
           <use xlinkHref="#icon-arrow2"></use>
         </svg>

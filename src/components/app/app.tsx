@@ -2,9 +2,6 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks/hooks';
 
-import HistoryRouter from '../history-route/history-route';
-import browserHistory from '../../browser-history';
-
 import { getErrorStatus } from '../../store/cameras-process/selector';
 
 import CatalogScreen from '../../pages/catalog-screen/catalog-screen';
@@ -26,26 +23,24 @@ function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <HistoryRouter history={browserHistory}>
-        <Routes>
-          <Route
-            path={AppRoute.Root}
-            element={<Navigate to = {`${AppRoute.Catalog}/${DEFAULT_PAGE}`} />}
-          />
-          <Route
-            path={`${AppRoute.Catalog}/:pageId`}
-            element={<CatalogScreen />}
-          />
-          <Route
-            path={`${AppRoute.Camera}/:id`}
-            element={<ProductScreen />}
-          />
-          <Route
-            path="*"
-            element={<NotFoundScreen />}
-          />
-        </Routes>
-      </HistoryRouter>
+      <Routes>
+        <Route
+          path={AppRoute.Root}
+          element={<Navigate to = {`${AppRoute.Catalog}/${DEFAULT_PAGE}`} />}
+        />
+        <Route
+          path={`${AppRoute.Catalog}/:pageId`}
+          element={<CatalogScreen />}
+        />
+        <Route
+          path={`${AppRoute.Camera}/:id`}
+          element={<ProductScreen />}
+        />
+        <Route
+          path="*"
+          element={<NotFoundScreen />}
+        />
+      </Routes>
     </HelmetProvider>
   );
 }

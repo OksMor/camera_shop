@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import browserHistory from './browser-history';
 
 import { store } from './store';
 import { fetchCamerasAction } from './store/api-action';
 
 import App from './components/app/app';
+import HistoryRouter from './components/history-router/history-router';
 
 store.dispatch(fetchCamerasAction());
 
@@ -16,7 +19,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store = {store}>
-      <App />
+      <HistoryRouter history = {browserHistory}>
+        <ToastContainer />
+        <App />
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>,
 );

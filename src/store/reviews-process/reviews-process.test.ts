@@ -2,9 +2,9 @@ import { fetchReviewsAction } from '../api-action';
 import { reviewsProcess } from './reviews-process';
 import { Review } from '../../types/types';
 import { ReviewsState } from '../../types/state';
-import { mockReview } from '../../mocks/mocks';
+import { mockReviews } from '../../mocks/mocks';
 
-const reviews: Review[] = Array.from({length: 24},mockReview);
+const reviews: Review[] = mockReviews;
 
 describe('Reducer: reviewsProcess', () => {
   let state: ReviewsState;
