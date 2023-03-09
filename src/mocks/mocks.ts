@@ -21,9 +21,15 @@ export const mockCamera = (): Camera => ({
   reviewCount: datatype.number(),
 });
 
-export const mockCameras: Camera[] = Array.from({length: 24}, mockCamera);
+// export const mockCameras: Camera[] = Array.from({length: 24}, mockCamera);
 
-export const mockSimilarCameras: Camera[] = Array.from({length: 24}, mockCamera);
+export const mockCameras = (): Camera[] =>
+  Array.from({ length: 24 }, (element, i) => mockCamera());
+
+// export const mockSimilarCameras: Camera[] = Array.from({length: 24}, mockCamera);
+
+export const mockSimilarCameras = (): Camera[] =>
+  Array.from({ length: 12 }, (element, i) => mockCamera());
 
 export const mockPromoCamera = (): Promo => ({
   id: datatype.number(),
@@ -45,7 +51,10 @@ export const mockReview = (): Review => ({
   cameraId: datatype.number(),
 });
 
-export const mockReviews: Review[] = Array.from({length: 24},mockReview);
+// export const mockReviews: Review[] = Array.from({length: 24},mockReview);
+
+export const mockReviews = (): Review[] =>
+  Array.from({ length: 6 }, (element, i) => mockReview());
 
 export const mockReviewPost = (): ReviewPost => ({
   cameraId: datatype.number(),
@@ -56,11 +65,11 @@ export const mockReviewPost = (): ReviewPost => ({
   rating: datatype.number({min: 1, max: 5}),
 });
 
-const cameras = mockCameras;
+const cameras = mockCameras();
 const camera = mockCamera();
 const promo = mockPromoCamera();
-const similarCameras = mockSimilarCameras;
-const reviews = mockReviews;
+const similarCameras = mockSimilarCameras();
+const reviews = mockReviews();
 
 const mockStore = configureMockStore([thunk]);
 
@@ -74,11 +83,11 @@ const mockStore = configureMockStore([thunk]);
 // });
 
 export const store = mockStore({
-  // CamerasData: {cameras: cameras, isLoading: true, hasError: false},
-  CamerasData: {cameras: cameras, isLoading: true},
-  CurrentCamera: { camera: camera, isLoading: true},
-  PromoData: {promo: promo, isLoading: true},
-  SimilarCameras: { similarCameras: similarCameras, isLoading: true},
-  ReviewsData: {reviews: reviews, isDataLoading: true},
-  App: {reviewsOpen: MAX_REVIEW_COUNT}
+  // CamerasData: { cameras: cameras, isLoading: true, hasError: false },
+  CamerasData: { cameras: cameras, isLoading: true },
+  CurrentCamera: { camera: camera, isLoading: true },
+  PromoData: { promo: promo, isLoading: true },
+  SimilarCameras: { similarCameras: similarCameras, isLoading: true },
+  ReviewsData: { reviews: reviews, isDataLoading: true },
+  App: { reviewsOpen: MAX_REVIEW_COUNT }
 });

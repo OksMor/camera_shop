@@ -4,7 +4,7 @@ import { Camera } from '../../types/types';
 import { SimilarCamerasState } from '../../types/state';
 import {mockSimilarCameras } from '../../mocks/mocks';
 
-const similarCameras: Camera[] = mockSimilarCameras;
+const similarCameras: Camera[] = mockSimilarCameras();
 
 describe('Reducer: similarCamerasProcess', () => {
   let state: SimilarCamerasState;

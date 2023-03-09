@@ -4,7 +4,7 @@ import { Review } from '../../types/types';
 import { ReviewsState } from '../../types/state';
 import { mockReviews } from '../../mocks/mocks';
 
-const reviews: Review[] = mockReviews;
+const reviews: Review[] = mockReviews();
 
 describe('Reducer: reviewsProcess', () => {
   let state: ReviewsState;

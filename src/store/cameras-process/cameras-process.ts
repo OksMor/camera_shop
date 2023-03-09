@@ -6,7 +6,7 @@ import { NameSpace } from '../../const';
 const initialState: CamerasState = {
   cameras: [],
   isLoading: true,
-  hasError: false,
+  // hasError: false,
 };
 
 export const camerasProcess = createSlice({
@@ -17,16 +17,16 @@ export const camerasProcess = createSlice({
     builder
       .addCase(fetchCamerasAction.pending, (state) => {
         state.isLoading = true;
-        state.hasError = false;
+        // state.hasError = false;
       })
       .addCase(fetchCamerasAction.fulfilled, (state, action) => {
         state.cameras = action.payload;
         state.isLoading = false;
-        state.hasError = false;
+        // state.hasError = false;
       })
       .addCase(fetchCamerasAction.rejected, (state) => {
         state.isLoading = false;
-        state.hasError = true;
+        // state.hasError = true;
       });
   }
 });

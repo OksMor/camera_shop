@@ -1,57 +1,64 @@
-// import { render, screen } from '@testing-library/react';
-// import { createMemoryHistory } from 'history';
-// import { Provider } from 'react-redux';
+import { render, screen } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import { Provider } from 'react-redux';
 
-// import HistoryRouter from '../history-router/history-router';
-// import App from './app';
-// import { AppRoute } from '../../const';
+import HistoryRouter from '../history-router/history-router';
+import App from './app';
+// import ErrorScreen from '../../pages/error-screen/error-screen';
+import { AppRoute } from '../../const';
 
-// import { store } from '../../mocks/mocks';
+import { store } from '../../mocks/mocks';
+import { mockCamera } from '../../mocks/mocks';
 
-// const history = createMemoryHistory();
+const history = createMemoryHistory();
 
-// const fakeApp = (
-//   <Provider store={store}>
-//     <HistoryRouter history={history}>
-//       <App />
-//     </HistoryRouter>
-//   </Provider>
-// );
+const camera = mockCamera();
+
+const fakeApp = (
+  <Provider store={store}>
+    <HistoryRouter history={history}>
+      <App />
+    </HistoryRouter>
+  </Provider>
+);
 
 // window.scrollTo = jest.fn();
 
-// describe('Application Routing', () => {
-//   it('should render "MainPage" when user navigate to "/"', () => {
-//     history.push('/');
+describe('Application Routing', () => {
 
-//     render(fakeApp);
+  it('should render "MainPage" when user navigate to "/"', () => {
+    history.push(AppRoute.Root);
 
-//     expect(screen.getByText(/Каталог фото- и видеотехники/i)).toBeInTheDocument();
-//   });
+    render(fakeApp);
 
-//   it('should render CatalogPage when user navigate to "/catalog/id"', () => {
-//     history.push(`${AppRoute.Catalog}${1}}`);
+    expect(screen.getByText(/Каталог фото- и видеотехники/i)).toBeInTheDocument();
+    expect(screen.queryByText(camera.name)).not.toBeInTheDocument();
+  });
 
-//     render(fakeApp);
+  // it('should render CatalogPage when user navigate to "/catalog/id"', () => {
+  //   history.push(`${AppRoute.Catalog}/2`);
 
-//     expect(screen.getByText(/Каталог фото- и видеотехники/i)).toBeInTheDocument();
-//   });
+  //   render(fakeApp);
 
-//   it('should render CameraPage when user navigate to "/cameras/id"', () => {
-//     history.push('/cameras/21');
+  //   expect(screen.getByText(/Каталог фото- и видеотехники/i)).toBeInTheDocument();
+  // });
 
-//     render(fakeApp);
+  // it('should render CameraPage when user navigate to "/cameras/id"', () => {
+  //   history.push(`${AppRoute.Camera}/2`);
 
-//     expect(screen.getByText(/Похожие товары/i)).toBeInTheDocument();
-//     expect(screen.getByText(/Отзывы/i)).toBeInTheDocument();
-//   });
+  //   render(fakeApp);
 
-//   it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
-//     history.push('/non-existent-route');
+  //   expect(screen.getByText(/Отзывы/i)).toBeInTheDocument();
 
-//     render(fakeApp);
+  // });
 
-//     expect(screen.getByText('404. Page not found')).toBeInTheDocument();
-//     expect(screen.getByText('Вернуться на главную')).toBeInTheDocument();
-//   });
-// });
+  it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
+    history.push('/non-existent-route');
+
+    render(fakeApp);
+
+    expect(screen.getByText('404. Page not found')).toBeInTheDocument();
+    expect(screen.getByText('Back to the main page')).toBeInTheDocument();
+  });
+
+});

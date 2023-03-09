@@ -16,10 +16,7 @@ describe('Component: NotFoundScreen', () => {
       </HistoryRouter>,
     );
 
-    const headerElement = screen.getByText('404. Page not found');
-    const linkElement = screen.getByText('Back to the main page');
-
-    expect(headerElement).toBeInTheDocument();
-    expect(linkElement).toBeInTheDocument();
+    expect(screen.getByText('404. Page not found')).toBeInTheDocument();
+    expect(screen.getByText('Back to the main page')).toBeInTheDocument();
   });
 });
