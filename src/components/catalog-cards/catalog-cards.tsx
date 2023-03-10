@@ -1,6 +1,5 @@
 import { Camera } from '../../types/types';
 
-
 import ProductCard from '../product-card/product-card';
 
 type CatalogCardsProps = {

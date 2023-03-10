@@ -2,15 +2,25 @@ import { render, screen } from '@testing-library/react';
 
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import { store } from '../../store';
+
+import thunk from 'redux-thunk';
+import { configureMockStore } from '@jedmao/redux-mock-store';
 
 import HistoryRouter from '../history-router/history-router';
 import Banner from './banner';
 import { mockPromoCamera } from '../../mocks/mocks';
 
+
+const promo = mockPromoCamera();
+const mockStore = configureMockStore([thunk]);
+
+const store = mockStore({
+  PROMODATA: { promo: promo, isLoading: true },
+});
+
+
 describe('Component: Banner', () => {
   const history = createMemoryHistory();
-  const promo = mockPromoCamera();
 
   it('should render correctly', () => {
     render(
@@ -21,9 +31,6 @@ describe('Component: Banner', () => {
       </Provider>
     );
 
-    // expect(screen.getByText(/Новинка!/i)).toBeInTheDocument();
-    expect(screen.queryByText(promo.name)).not.toBeInTheDocument();
-    // expect(screen.getByText('Новинка!')).toBeInTheDocument();
-    // expect(screen.getByText('Профессиональная камера от известного производителя')).toBeInTheDocument();
+    expect(screen.getByText(/Новинка!/i)).toBeInTheDocument();
   });
 });

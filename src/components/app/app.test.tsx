@@ -1,18 +1,32 @@
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-
+import thunk from 'redux-thunk';
+import { configureMockStore } from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-router/history-router';
-import App from './app';
-// import ErrorScreen from '../../pages/error-screen/error-screen';
-import { AppRoute } from '../../const';
 
-import { store } from '../../mocks/mocks';
-import { mockCamera } from '../../mocks/mocks';
+import App from './app';
+import { mockCamera, mockCameras, mockPromoCamera, mockSimilarCameras, mockReviews } from '../../mocks/mocks';
+import { AppRoute, MAX_REVIEW_COUNT } from '../../const';
 
 const history = createMemoryHistory();
 
+const cameras = mockCameras();
 const camera = mockCamera();
+const promo = mockPromoCamera();
+const similarCameras = mockSimilarCameras();
+const reviews = mockReviews();
+
+const mockStore = configureMockStore([thunk]);
+
+const store = mockStore({
+  CAMERASDATA: { cameras: cameras, isLoading: true },
+  CURRENTCAMERA: { camera: camera, isLoading: true },
+  PROMODATA: { promo: promo, isLoading: true },
+  SIMILARCAMERAS: { similarCameras: similarCameras, isLoading: true },
+  REVIEWSDATA: { reviews: reviews, isDataLoading: true },
+  APP: { reviewsOpen: MAX_REVIEW_COUNT }
+});
 
 const fakeApp = (
   <Provider store={store}>
@@ -22,35 +36,33 @@ const fakeApp = (
   </Provider>
 );
 
-// window.scrollTo = jest.fn();
-
 describe('Application Routing', () => {
 
-  it('should render "MainPage" when user navigate to "/"', () => {
+  it('should render "CatalogScreen" when user navigate to "/"', () => {
     history.push(AppRoute.Root);
 
     render(fakeApp);
 
     expect(screen.getByText(/Каталог фото- и видеотехники/i)).toBeInTheDocument();
-    expect(screen.queryByText(camera.name)).not.toBeInTheDocument();
+
   });
 
-  // it('should render CatalogPage when user navigate to "/catalog/id"', () => {
-  //   history.push(`${AppRoute.Catalog}/2`);
+  it('should render CatalogPage when user navigate to "/catalog/id"', () => {
+    history.push(`${AppRoute.Catalog}/2`);
 
-  //   render(fakeApp);
+    render(fakeApp);
 
-  //   expect(screen.getByText(/Каталог фото- и видеотехники/i)).toBeInTheDocument();
-  // });
+    expect(screen.getByText(/Каталог фото- и видеотехники/i)).toBeInTheDocument();
+  });
 
-  // it('should render CameraPage when user navigate to "/cameras/id"', () => {
-  //   history.push(`${AppRoute.Camera}/2`);
+  it('should render CameraPage when user navigate to "/cameras/id"', () => {
+    history.push(`${AppRoute.Camera}/2`);
 
-  //   render(fakeApp);
+    render(fakeApp);
 
-  //   expect(screen.getByText(/Отзывы/i)).toBeInTheDocument();
+    expect(screen.getByText(/Отзывы/i)).toBeInTheDocument();
 
-  // });
+  });
 
   it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
     history.push('/non-existent-route');

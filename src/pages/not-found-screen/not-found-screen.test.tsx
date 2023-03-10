@@ -1,6 +1,6 @@
-import {render, screen} from '@testing-library/react';
-import {HelmetProvider} from 'react-helmet-async';
-import {createMemoryHistory} from 'history';
+import { render, screen } from '@testing-library/react';
+import { HelmetProvider } from 'react-helmet-async';
+import { createMemoryHistory } from 'history';
 import HistoryRouter from '../../components/history-router/history-router';
 import NotFoundScreen from './not-found-screen';
 

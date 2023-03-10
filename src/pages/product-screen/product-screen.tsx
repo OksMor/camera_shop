@@ -60,7 +60,7 @@ function ProductScreen(): JSX.Element {
     }
   }, [id, dispatch]);
 
-  const handleButtonClick = () => { // тоже что и в каталоге!
+  const handleButtonClick = () => {
     setInBasket(true);
     setCatalogAddItemModalOpen(true);
   };

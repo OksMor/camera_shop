@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from '../../store';
 import { mockCamera } from '../../mocks/mocks';
 import HistoryRouter from '../../components/history-router/history-router';
-import  ProductCard from './product-card';
+import ProductCard from './product-card';
 
 const camera = mockCamera();
 

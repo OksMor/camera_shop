@@ -90,12 +90,6 @@ function CatalogAddItemModal (props : CatalogAddItemModalProps) : JSX.Element {
                     <use xlinkHref="#icon-add-basket"></use>
                   </svg>Добавить в корзину
                 </button> : <button className="btn btn--purple product-card__btn" type="button" onClick={handleButtonClick}>Добавить в корзину</button>}
-              {/* <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button">
-                <svg width="24" height="16" aria-hidden="true">
-                  <use xlinkHref="#icon-add-basket"></use>
-                </svg>
-                Добавить в корзину
-              </button> */}
             </div>
 
             <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={closeModal}>

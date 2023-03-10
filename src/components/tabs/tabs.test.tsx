@@ -6,9 +6,8 @@ import {createMemoryHistory } from 'history';
 import Tabs from './tabs';
 import { mockCamera } from '../../mocks/mocks';
 
-const camera =mockCamera();
+const camera = mockCamera();
 
-// -----------------------------------------------------------Прокинут пропс
 describe('Component: Tabs', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();

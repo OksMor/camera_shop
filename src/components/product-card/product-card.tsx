@@ -16,7 +16,7 @@ function ProductCard(props: ProductCardProps): JSX.Element {
   const [isCatalogAddItemModalOpen, setCatalogAddItemModalOpen] = useState<boolean>(false);
 
   const handleButtonClick = () => {
-    setInBasket(true);// обратный проброс в корзине или нет. связать попапы . отображение количества товара в корзине
+    setInBasket(true);
     setCatalogAddItemModalOpen(true);
   };
 
@@ -42,7 +42,6 @@ function ProductCard(props: ProductCardProps): JSX.Element {
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{camera.price.toLocaleString('ru-Ru')} ₽ </p>
       </div>
       <div className="product-card__buttons">
-        {/* <button className="btn btn--purple product-card__btn" type="button" onClick={handleButtonClick}>Купить</button> */}
         {inBasket ? <button className="btn btn--purple-border product-card__btn product-card__btn--in-cart"><svg width={16} height={16} aria-hidden="true"><use xlinkHref="#icon-basket"/></svg>В корзине</button> : <button className="btn btn--purple product-card__btn" type="button" onClick={handleButtonClick}>Купить</button>}
         <a className="btn btn--transparent" href={`${APIRoute.Cameras}/${camera.id}`}>Подробнее</a>
       </div>

@@ -4,7 +4,6 @@ import { useAppSelector } from '../../hooks/hooks';
 function Banner(): JSX.Element {
 
   const promo = useAppSelector(getPromo);
-  // const isLoading = useAppSelector(getIsPromoLoading);
 
   return promo ? (
     <div className="banner">

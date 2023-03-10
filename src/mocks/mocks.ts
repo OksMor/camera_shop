@@ -1,8 +1,5 @@
 import { datatype, commerce, image, date, name } from 'faker';
 import { Camera, Promo, Review, ReviewPost } from '../types/types';
-import thunk from 'redux-thunk';
-import { configureMockStore } from '@jedmao/redux-mock-store';
-import { MAX_REVIEW_COUNT } from '../const';
 
 export const mockCamera = (): Camera => ({
   id: datatype.number(),
@@ -21,12 +18,8 @@ export const mockCamera = (): Camera => ({
   reviewCount: datatype.number(),
 });
 
-// export const mockCameras: Camera[] = Array.from({length: 24}, mockCamera);
-
 export const mockCameras = (): Camera[] =>
   Array.from({ length: 24 }, (element, i) => mockCamera());
-
-// export const mockSimilarCameras: Camera[] = Array.from({length: 24}, mockCamera);
 
 export const mockSimilarCameras = (): Camera[] =>
   Array.from({ length: 12 }, (element, i) => mockCamera());
@@ -51,8 +44,6 @@ export const mockReview = (): Review => ({
   cameraId: datatype.number(),
 });
 
-// export const mockReviews: Review[] = Array.from({length: 24},mockReview);
-
 export const mockReviews = (): Review[] =>
   Array.from({ length: 6 }, (element, i) => mockReview());
 
@@ -63,31 +54,4 @@ export const mockReviewPost = (): ReviewPost => ({
   disadvantage: datatype.string(),
   review: datatype.string(),
   rating: datatype.number({min: 1, max: 5}),
-});
-
-const cameras = mockCameras();
-const camera = mockCamera();
-const promo = mockPromoCamera();
-const similarCameras = mockSimilarCameras();
-const reviews = mockReviews();
-
-const mockStore = configureMockStore([thunk]);
-
-// export const store = mockStore({
-//   CamerasData: cameras,
-//   CurrentCamera: camera,
-//   PromoData: promo,
-//   SimilarCameras: similarCameras,
-//   ReviewsData: reviews,
-//   App: MAX_REVIEW_COUNT,
-// });
-
-export const store = mockStore({
-  // CamerasData: { cameras: cameras, isLoading: true, hasError: false },
-  CamerasData: { cameras: cameras, isLoading: true },
-  CurrentCamera: { camera: camera, isLoading: true },
-  PromoData: { promo: promo, isLoading: true },
-  SimilarCameras: { similarCameras: similarCameras, isLoading: true },
-  ReviewsData: { reviews: reviews, isDataLoading: true },
-  App: { reviewsOpen: MAX_REVIEW_COUNT }
 });
