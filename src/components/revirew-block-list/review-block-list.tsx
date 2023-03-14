@@ -10,7 +10,7 @@ function ReviewBlockList(props: ReviewBlockListProps): JSX.Element {
   const { reviews } = props;
 
   return (
-    <div className="review-block__list">
+    <div className="review-block__list" data-testid="review-block__list">
       {reviews.map((review) => <ReviewCard key={review.id} reviewCard={review} />)}
     </div>
   );

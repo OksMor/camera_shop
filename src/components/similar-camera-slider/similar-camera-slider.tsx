@@ -1,23 +1,23 @@
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks/hooks';
 import { getSimilarCameras } from '../../store/similar-cameras-process/selector';
-import { DEFAULT_SLIDE, MAX_SLIDES_ON_PAGE, SLIDE_COUNTER_STEP } from '../../const';
+import { Slide } from '../../const';
 import ProductCard from '../product-card/product-card';
 
 function SimilarCameraSlider (): JSX.Element {
 
-  const [firstSlideCounter, setFirstSlideCounter] = useState(DEFAULT_SLIDE);
+  const [firstSlideCounter, setFirstSlideCounter] = useState(Slide.Default);
 
   const similarCameras = useAppSelector(getSimilarCameras);
 
   const similarCameraListSlice = similarCameras;
 
   const handlePrevBtnClick = () => {
-    setFirstSlideCounter((prevCounter) => prevCounter - SLIDE_COUNTER_STEP);
+    setFirstSlideCounter((prevCounter) => prevCounter - Slide.CounterStep);
   };
 
   const handleNextBtnClick = () => {
-    setFirstSlideCounter((prevCounter) => prevCounter + SLIDE_COUNTER_STEP);
+    setFirstSlideCounter((prevCounter) => prevCounter + Slide.CounterStep);
   };
 
   return (
@@ -28,7 +28,7 @@ function SimilarCameraSlider (): JSX.Element {
 
           <div className="product-similar__slider-list">
 
-            {similarCameraListSlice.slice(firstSlideCounter, (firstSlideCounter + MAX_SLIDES_ON_PAGE)).map((camera) => (
+            {similarCameraListSlice.slice(firstSlideCounter, (firstSlideCounter + Slide.MaxCards)).map((camera) => (
               <div key={camera.id} className="product-card is-active">
                 <ProductCard key={camera.id} camera={camera} />
               </div>
@@ -36,13 +36,13 @@ function SimilarCameraSlider (): JSX.Element {
 
           </div>
 
-          <button onClick={handlePrevBtnClick} className="slider-controls slider-controls--prev" type="button" aria-label="Предыдущий слайд" disabled={firstSlideCounter === DEFAULT_SLIDE}>
+          <button onClick={handlePrevBtnClick} className="slider-controls slider-controls--prev" type="button" aria-label="Предыдущий слайд" disabled={firstSlideCounter === Slide.Default}>
             <svg width="7" height="12" aria-hidden="true">
               <use xlinkHref="#icon-arrow"></use>
             </svg>
           </button>
 
-          <button onClick={handleNextBtnClick} className="slider-controls slider-controls--next" type="button" aria-label="Следующий слайд" disabled={firstSlideCounter === (similarCameras.length - MAX_SLIDES_ON_PAGE)}>
+          <button onClick={handleNextBtnClick} className="slider-controls slider-controls--next" type="button" aria-label="Следующий слайд" disabled={firstSlideCounter === (similarCameras.length - Slide.MaxCards)}>
             <svg width="7" height="12" aria-hidden="true">
               <use xlinkHref="#icon-arrow"></use>
             </svg>

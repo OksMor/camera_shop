@@ -9,7 +9,7 @@ import ProductScreen from '../../pages/product-screen/product-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import ErrorScreen from '../../pages/error-screen/error-screen';
 
-import { AppRoute, DEFAULT_PAGE } from '../../const';
+import { AppRoute, Page } from '../../const';
 
 function App(): JSX.Element {
 
@@ -26,7 +26,7 @@ function App(): JSX.Element {
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<Navigate to = {`${AppRoute.Catalog}/${DEFAULT_PAGE}`} />}
+          element={<Navigate to = {`${AppRoute.Catalog}/${Page.Default}`} />}
         />
         <Route
           path={`${AppRoute.Catalog}/:pageId`}

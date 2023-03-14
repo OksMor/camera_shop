@@ -28,13 +28,23 @@ export enum Tab {
 export const DEFAULT_RATING = 0;
 export const MAX_RATING = 5;
 
-export const DEFAULT_PAGE = 1;
-export const MAX_CARDS_ON_PAGE = 9;
-export const PAGE_COUNTER_STEP = 1;
+export enum Page {
+  Default = 1,
+  MaxCards = 9,
+ CounterStep = 1,
+}
+// export const DEFAULT_PAGE = 1;
+// export const MAX_CARDS_ON_PAGE = 9;
+// export const PAGE_COUNTER_STEP = 1;
 
-export const DEFAULT_SLIDE = 0;
-export const MAX_SLIDES_ON_PAGE = 3;
-export const SLIDE_COUNTER_STEP = 1;
+export enum Slide {
+  Default = 0,
+  MaxCards = 3,
+ CounterStep = 1,
+}
+// export const DEFAULT_SLIDE = 0;
+// export const MAX_SLIDES_ON_PAGE = 3;
+// export const SLIDE_COUNTER_STEP = 1;
 
 export const MAX_REVIEW_COUNT = 3;
 

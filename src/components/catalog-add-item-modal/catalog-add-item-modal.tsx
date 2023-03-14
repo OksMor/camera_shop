@@ -30,7 +30,7 @@ function CatalogAddItemModal (props : CatalogAddItemModalProps) : JSX.Element {
 
   const handleButtonClick = () => {
     setInBasket(true);
-    // setCatalogAddItemModalOpen(true);
+
   };
 
   useEffect(() => {

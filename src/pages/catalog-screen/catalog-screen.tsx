@@ -21,7 +21,7 @@ import CatalogCards from '../../components/catalog-cards/catalog-cards';
 
 import Loading from '../../components/loading/loading';
 
-import { PAGE_COUNTER_STEP, MAX_CARDS_ON_PAGE } from '../../const';
+import { Page } from '../../const';
 
 function CatalogScreen(): JSX.Element {
 
@@ -31,9 +31,9 @@ function CatalogScreen(): JSX.Element {
 
   const { pageId } = useParams();
 
-  const firstCardIndex = MAX_CARDS_ON_PAGE * (Number(pageId) - PAGE_COUNTER_STEP);
+  const firstCardIndex = Page.MaxCards * (Number(pageId) - Page.CounterStep);
 
-  const camerasOnPage = cameras.slice(firstCardIndex, (firstCardIndex + MAX_CARDS_ON_PAGE));
+  const camerasOnPage = cameras.slice(firstCardIndex, (firstCardIndex + Page.MaxCards));
 
   const isCamerasLoading = useAppSelector(getIsCamerasLoading);
 
