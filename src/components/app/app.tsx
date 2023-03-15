@@ -33,7 +33,7 @@ function App(): JSX.Element {
           element={<CatalogScreen />}
         />
         <Route
-          path={`${AppRoute.Camera}`}
+          path={`${AppRoute.DefaultCamera}`}
           element={<ProductScreen />}
         />
         <Route

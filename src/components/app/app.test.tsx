@@ -7,7 +7,7 @@ import HistoryRouter from '../history-router/history-router';
 
 import App from './app';
 import { mockCamera, mockCameras, mockPromoCamera, mockSimilarCameras, mockReviews } from '../../mocks/mocks';
-import { AppRoute, MAX_REVIEW_COUNT } from '../../const';
+import { MAX_REVIEW_COUNT } from '../../const';
 
 const history = createMemoryHistory();
 
@@ -39,7 +39,7 @@ const fakeApp = (
 describe('Application Routing', () => {
 
   it('should render "CatalogScreen" when user navigate to "/"', () => {
-    history.push(AppRoute.Root);
+    history.push('/');
 
     render(fakeApp);
 
@@ -48,7 +48,7 @@ describe('Application Routing', () => {
   });
 
   it('should render CatalogPage when user navigate to "/catalog/id"', () => {
-    history.push(`${AppRoute.Catalog}/2`);
+    history.push('/catalog/2');
 
     render(fakeApp);
 
@@ -56,7 +56,7 @@ describe('Application Routing', () => {
   });
 
   it('should render CameraPage when user navigate to "/cameras/id"', () => {
-    history.push(`${AppRoute.Camera}/2`);
+    history.push('/cameras/2/:about');
 
     render(fakeApp);
 

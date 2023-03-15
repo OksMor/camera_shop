@@ -1,10 +1,8 @@
-import { useState } from 'react';
-
+import { Link, useParams } from 'react-router-dom';
+import classnames from 'classnames';
 import { Camera } from '../../types/types';
 
 import { Tab } from '../../const';
-
-type TabType = keyof typeof Tab;
 
 type Props = {
   camera: Camera;
@@ -12,27 +10,40 @@ type Props = {
 
 const Tabs = ({ camera }: Props) => {
 
-  const [activeTab, setActiveTab] = useState<TabType>(Tab.Description);
+  const { about } = useParams();
 
-  const clickHandle = (evt: React.MouseEvent, tabName: TabType) => {
-    evt.preventDefault();
-    setActiveTab(tabName);
-  };
+  const getControlClassName = (aboutTabsTitle: string) => classnames(
+    'tabs__control',
+    { 'is-active': about === aboutTabsTitle }
+  );
+
+  const getElementClassName = (aboutTabsTitle: string) => classnames(
+    'tabs__element',
+    { 'is-active': about === aboutTabsTitle }
+  );
 
   return (
     <div className="tabs product__tabs">
 
       <div className="tabs__controls product__tabs-controls">
-        <button className={activeTab === Tab.Specification ? 'tabs__control is-active' : 'tabs__control'} type="button" onClick={(evt) => clickHandle(evt, Tab.Specification)}>
-          Характеристики
-        </button>
-        <button className={activeTab === Tab.Description ? 'tabs__control is-active' : 'tabs__control'} type="button" onClick={(evt) => clickHandle(evt, Tab.Description)}>
-          Описание
-        </button>
+
+        <Link to={camera.id ? `/cameras/${camera.id}/${Tab.Specification}` : '/'}>
+          <button className={getControlClassName(Tab.Specification)} type="button">
+            Характеристики
+          </button>
+        </Link>
+
+        <Link to={camera.id ? `/cameras/${camera.id}/${Tab.Description}` : '/'}>
+          <button className={getControlClassName(Tab.Description)} type="button">
+            Описание
+          </button>
+        </Link>
+
       </div>
 
       <div className="tabs__content">
-        <div className={activeTab === Tab.Specification ? 'tabs__element is-active' : 'tabs__element'}>
+
+        <div className={getElementClassName(Tab.Specification)}>
 
           <ul className="product__tabs-list">
             <li className="item-list">
@@ -55,7 +66,7 @@ const Tabs = ({ camera }: Props) => {
 
         </div>
 
-        <div className={activeTab === Tab.Description ? 'tabs__element is-active' : 'tabs__element'}>
+        <div className={getElementClassName(Tab.Description)}>
           <div className="product__tabs-text">
             <p>{camera.description}</p>
           </div>

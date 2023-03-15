@@ -2,6 +2,7 @@ export enum AppRoute {
   Root = '/',
   Camera = '/cameras/:id',
   Catalog = '/catalog/:pageId',
+  DefaultCamera = '/cameras/:id/:about',
 }
 
 export enum APIRoute {
@@ -21,8 +22,8 @@ export enum NameSpace {
 }
 
 export enum Tab {
-  Description = 'Description',
-  Specification = 'Specification',
+  Description = 'description',
+  Specification = 'specification',
 }
 
 export const DEFAULT_RATING = 0;
