@@ -9,7 +9,7 @@ import ProductScreen from '../../pages/product-screen/product-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import ErrorScreen from '../../pages/error-screen/error-screen';
 
-import { AppRoute, Page } from '../../const';
+import { AppRoute, APIRoute, Page } from '../../const';
 
 function App(): JSX.Element {
 
@@ -26,14 +26,14 @@ function App(): JSX.Element {
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<Navigate to = {`${AppRoute.Catalog}/${Page.Default}`} />}
+          element={<Navigate to = {`${APIRoute.Catalog}/${Page.Default}`} />}
         />
         <Route
-          path={`${AppRoute.Catalog}/:pageId`}
+          path={`${AppRoute.Catalog}`}
           element={<CatalogScreen />}
         />
         <Route
-          path={`${AppRoute.Camera}/:id`}
+          path={`${AppRoute.Camera}`}
           element={<ProductScreen />}
         />
         <Route
