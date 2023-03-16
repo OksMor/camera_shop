@@ -92,8 +92,8 @@ function ProductScreen(): JSX.Element {
               <div className="container">
                 <div className="product__img">
                   <picture>
-                    <source type="image/webp" srcSet={`${process.env.PUBLIC_URL}/${camera.previewImgWebp}, {${process.env.PUBLIC_URL}/${camera.previewImgWebp2x}} 2x`}/>
-                    <img src={`${process.env.PUBLIC_URL}/${camera.previewImg}`} srcSet={`${process.env.PUBLIC_URL}/${camera.previewImg2x} 2x`} width="560" height="480" alt={camera.name}/>
+                    <source type="image/webp" srcSet={`/${camera.previewImgWebp}, /${camera.previewImgWebp2x} 2x`}/>
+                    <img src={`/${camera.previewImg}`} srcSet={`/${camera.previewImg2x} 2x`} width="560" height="480" alt={camera.name}/>
                   </picture>
                 </div>
                 <div className="product__content">
