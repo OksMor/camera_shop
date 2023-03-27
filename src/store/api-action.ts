@@ -69,3 +69,31 @@ export const postReviewAction = createAsyncThunk<
     }
   },
 );
+
+export const fetchCamerasByNameAction = createAsyncThunk<Camera[], string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchCamerasByName',
+  async (name, {extra: api}) => (await api.get<Camera[]>(APIRoute.Cameras, { params: name })).data,
+);
+
+// export const fetchCamerasByNameAction = createAsyncThunk<Camera[], string, {
+//   dispatch: AppDispatch;
+//   state: State;
+//   extra: AxiosInstance;
+// }>(
+//   'data/fetchCamerasByName',
+//   async (
+//     { name },
+//     { extra: api },
+//     ) => {
+//     try {
+//       await api.get<Camera[]>(APIRoute.Cameras, { name });
+//     } catch (error) {
+//       toast.error('Попробуйте позже');
+//       throw error;
+//     }
+//   }
+// );

@@ -10,6 +10,7 @@ export type CamerasState = {
   cameras: Camera[];
   isLoading: boolean;
   hasError: boolean;
+  camerasByName: Camera[];
 };
 
 export type PromoState = {
@@ -34,4 +35,5 @@ export type ReviewsState = {
 
 export type AppState = {
   reviewsOpen: number;
+
 };

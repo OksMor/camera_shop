@@ -1,4 +1,4 @@
-import { fetchCamerasAction } from '../api-action';
+import { fetchCamerasAction, fetchCamerasByNameAction } from '../api-action'; //
 import { CamerasState } from '../../types/state';
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
@@ -7,6 +7,7 @@ const initialState: CamerasState = {
   cameras: [],
   isLoading: true,
   hasError: false,
+  camerasByName: [],
 };
 
 export const camerasProcess = createSlice({
@@ -27,6 +28,9 @@ export const camerasProcess = createSlice({
       .addCase(fetchCamerasAction.rejected, (state) => {
         state.isLoading = false;
         state.hasError = true;
+      })
+      .addCase(fetchCamerasByNameAction.fulfilled, (state, action) => {
+        state.camerasByName = action.payload;
       });
   }
 });

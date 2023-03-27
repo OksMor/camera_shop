@@ -10,7 +10,7 @@ describe('Reducer: camerasProcess', () => {
   let state: CamerasState;
 
   beforeEach(() => {
-    state = {cameras: [], isLoading: true, hasError: false};
+    state = {cameras: [], isLoading: true, hasError: false, camerasByName: []};
   });
 
   it('without additional parameters should return initial state', () => {
